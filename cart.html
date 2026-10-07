@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCart AI - Cart</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🛒 SmartCart AI
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="cart.html">
+                Cart 🛒
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CART SECTION -->
+
+    <section class="cart-section">
+
+        <h1>🛒 Your Shopping Cart</h1>
+
+        <p>
+            Review your selected products before checkout.
+        </p>
+
+
+        <!-- PRODUCTS -->
+
+        <div id="cart-items">
+
+        </div>
+
+
+        <!-- BILL -->
+
+        <div class="bill-box">
+
+            <h2>🧾 Order Summary</h2>
+
+            <div class="bill-row">
+
+                <span>Subtotal</span>
+
+                <strong id="subtotal">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div class="bill-row">
+
+                <span>GST (18%)</span>
+
+                <strong id="gst">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <hr>
+
+
+            <div class="bill-row total-row">
+
+                <span>Total</span>
+
+                <strong id="total">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <button
+                onclick="checkout()"
+                class="checkout-btn">
+
+                ✅ Proceed to Checkout
+
+            </button>
+
+        </div>
+
+
+        <br>
+
+
+        <a href="index.html"
+            class="continue-shopping">
+
+            ← Continue Shopping
+
+        </a>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

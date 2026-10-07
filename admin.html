@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCart AI - Admin Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🛒 SmartCart AI
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="cart.html">
+                Cart 🛒
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- DASHBOARD -->
+
+    <section class="admin-dashboard">
+
+        <h1>📊 SmartCart AI Admin Dashboard</h1>
+
+        <p class="dashboard-subtitle">
+            Business Performance & Financial Overview
+        </p>
+
+
+        <!-- KPI CARDS -->
+
+        <div class="dashboard-grid">
+
+
+            <div class="dashboard-card">
+
+                <h3>💰 Total Revenue</h3>
+
+                <p id="dashboard-revenue">
+                    ₹0
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>🛒 Total Orders</h3>
+
+                <p id="dashboard-orders">
+                    0
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>📦 Products Sold</h3>
+
+                <p id="dashboard-products">
+                    0
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>🧾 GST Collected</h3>
+
+                <p id="dashboard-gst">
+                    ₹0
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>📈 Estimated Profit</h3>
+
+                <p id="dashboard-profit">
+                    ₹0
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>🤝 Affiliate Commission</h3>
+
+                <p id="dashboard-affiliate">
+                    ₹0
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>👥 Customer Acquisition Cost</h3>
+
+                <p id="dashboard-cac">
+                    ₹0
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>📊 Profit Margin</h3>
+
+                <p id="dashboard-margin">
+                    0%
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- PRODUCT COST / COGS -->
+
+    <div class="dashboard-card">
+
+        <h3>📦 Product Cost (COGS)</h3>
+
+        <p id="dashboard-cogs">
+            ₹0
+        </p>
+
+    </div>
+
+</div>
+
+        <!-- BUSINESS MODEL -->
+
+        <div class="business-model">
+
+            <h2>💼 SmartCart AI Business Model</h2>
+
+            <div class="model-grid">
+
+                <div>
+
+                    <h3>Affiliate Commission</h3>
+
+                    <p>
+                        SmartCart earns commission when
+                        customers purchase products through
+                        affiliate links.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>Subscription Model</h3>
+
+                    <p>
+                        Future premium users can pay for
+                        advanced AI recommendations and
+                        personalized shopping features.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>Customer Acquisition</h3>
+
+                    <p>
+                        Marketing and promotion expenses are
+                        tracked using Customer Acquisition Cost
+                        (CAC).
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FINANCIAL SUMMARY -->
+
+        <div class="financial-summary">
+
+            <h2>🧾 Financial Summary</h2>
+
+            <p>
+                Revenue = Total value of customer purchases
+            </p>
+
+            <p>
+                GST = 18% of taxable sales
+            </p>
+
+            <p>
+                Affiliate Commission = 5% of sales
+            </p>
+
+            <p>
+                 Estimated Profit = Revenue − GST − COGS − Marketing Expense
+
+            </p>
+
+        </div>
+<!-- ORDER HISTORY -->
+
+<div class="order-history">
+
+    <h2>📋 Recent Orders</h2>
+
+    <div id="order-history-list">
+
+        <p>No orders yet.</p>
+
+    </div>
+
+</div>
+
+        <br>
+
+        <a href="index.html"
+            class="dashboard-home-btn">
+
+            ← Back to SmartCart
+
+        </a>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
