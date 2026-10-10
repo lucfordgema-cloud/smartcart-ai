@@ -689,3 +689,215 @@ function filterProducts() {
     }
 
 }
+/* ===== SmartCart AI premium admin dashboard refresh ===== */
+.admin-dashboard {
+  width: min(1240px, calc(100% - 36px));
+  margin: 38px auto 64px;
+  padding: clamp(18px, 3vw, 36px);
+  background: #f5f7fc;
+  border: 1px solid #e7ebf4;
+  border-radius: 24px;
+  box-shadow: 0 18px 55px rgba(21, 36, 74, .08);
+}
+.admin-dashboard > h1 {
+  color: #15264b;
+  font-size: clamp(1.65rem, 3vw, 2.45rem);
+  letter-spacing: -.04em;
+  margin: 0 0 8px;
+}
+.dashboard-subtitle {
+  color: #6d7892;
+  margin: 0 0 28px;
+  font-size: 1rem;
+}
+.admin-dashboard .dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 24px 0 18px;
+}
+.admin-dashboard .dashboard-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 132px;
+  padding: 22px;
+  margin: 0;
+  border: 1px solid #e8edf6;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #fff 0%, #fbfcff 100%);
+  box-shadow: 0 7px 22px rgba(29, 47, 88, .055);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.admin-dashboard .dashboard-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(29, 47, 88, .1);
+}
+.admin-dashboard .dashboard-card h3 {
+  color: #68748e;
+  font-size: .88rem;
+  font-weight: 600;
+  line-height: 1.45;
+  margin: 0 0 18px;
+}
+.admin-dashboard .dashboard-card p {
+  color: #17284f;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  font-weight: 750;
+  letter-spacing: -.035em;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+/* COGS card sits alongside the other KPI cards */
+.admin-dashboard > .dashboard-card {
+  display: inline-block;
+  width: calc(25% - 15px);
+  vertical-align: top;
+  min-height: 132px;
+  margin: 0 0 18px;
+}
+.admin-dashboard .business-model,
+.admin-dashboard .financial-summary,
+.admin-dashboard .order-history {
+  background: #fff;
+  border: 1px solid #e7ebf4;
+  border-radius: 20px;
+  padding: clamp(20px, 3vw, 30px);
+  margin: 20px 0;
+  box-shadow: 0 8px 24px rgba(29, 47, 88, .045);
+}
+.admin-dashboard .business-model h2,
+.admin-dashboard .financial-summary h2,
+.admin-dashboard .order-history h2 {
+  color: #17284f;
+  font-size: 1.3rem;
+  margin: 0 0 20px;
+}
+.admin-dashboard .model-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.admin-dashboard .model-grid > div {
+  padding: 18px;
+  border-radius: 14px;
+  background: #f6f8fd;
+  border: 1px solid #edf0f7;
+}
+.admin-dashboard .model-grid h3 {
+  color: #344b7d;
+  font-size: 1rem;
+  margin: 0 0 8px;
+}
+.admin-dashboard .model-grid p,
+.admin-dashboard .financial-summary p {
+  color: #69758d;
+  line-height: 1.7;
+  margin: 6px 0;
+}
+.admin-dashboard .financial-summary p {
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: #f7f9fd;
+  color: #3e4d6c;
+}
+.admin-dashboard .order-row {
+  border: 1px solid #edf0f6;
+  background: #fafbfe;
+}
+.admin-dashboard .order-status {
+  color: #16835d;
+  background: #e7f8f0;
+  padding: 6px 10px;
+  border-radius: 99px;
+  font-size: .82rem;
+}
+.admin-dashboard .dashboard-home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: #182b55;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 650;
+  transition: background .2s ease, transform .2s ease;
+}
+.admin-dashboard .dashboard-home-btn:hover {
+  background: #28477f;
+  transform: translateY(-1px);
+}
+@media (max-width: 980px) {
+  .admin-dashboard .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-dashboard > .dashboard-card { width: calc(50% - 10px); }
+  .admin-dashboard .model-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .admin-dashboard { width: calc(100% - 20px); margin: 18px auto 36px; padding: 16px; border-radius: 18px; }
+  .admin-dashboard .dashboard-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .admin-dashboard .dashboard-card { min-height: 118px; padding: 15px; }
+  .admin-dashboard .dashboard-card h3 { font-size: .78rem; margin-bottom: 14px; }
+  .admin-dashboard .dashboard-card p { font-size: 1.25rem; }
+  .admin-dashboard > .dashboard-card { width: calc(50% - 7px); padding: 15px; }
+  .admin-dashboard .business-model, .admin-dashboard .financial-summary, .admin-dashboard .order-history { padding: 18px; }
+}
+.admin-welcome { padding: 8px 0 2px; }
+.admin-eyebrow { display: inline-block; margin: 0 0 12px; color: #5271ad; font-size: .72rem; font-weight: 800; letter-spacing: .15em; }
+.section-note { display: inline-block; margin-left: 8px; color: #8b95aa; font-size: .8rem; font-weight: 500; }
+
+/* ===== SmartCart AI cohesive professional theme: midnight navy + teal + warm white ===== */
+:root {
+  --sc-ink: #14253d;
+  --sc-navy: #102a43;
+  --sc-teal: #0f9f91;
+  --sc-teal-dark: #087f75;
+  --sc-mint: #e5f7f4;
+  --sc-bg: #f4f8fb;
+  --sc-muted: #617286;
+  --sc-border: #dce7ee;
+  --sc-white: #ffffff;
+}
+body { background: var(--sc-bg); color: var(--sc-ink); }
+.navbar { background: rgba(255,255,255,.96); border-bottom: 1px solid var(--sc-border); box-shadow: 0 5px 24px rgba(16,42,67,.045); }
+.logo { color: var(--sc-navy); letter-spacing: -.035em; }
+.logo span, nav a:hover, .small-heading, .hero h1 span { color: var(--sc-teal); }
+nav a { color: #42566b; font-weight: 600; transition: color .2s ease; }
+.cart-btn, .primary-btn, .product-card button, .login-card button { background: var(--sc-teal); }
+.cart-btn:hover, .primary-btn:hover, .product-card button:hover, .login-card button:hover { background: var(--sc-teal-dark); }
+.hero { background: radial-gradient(ellipse at 80% 20%, #d9f4ef 0%, transparent 42%), linear-gradient(135deg, #f8fbfd, #eaf3f7); }
+.hero-card, .product-card { border: 1px solid var(--sc-border); box-shadow: 0 14px 38px rgba(16,42,67,.075); }
+.secondary-btn { color: var(--sc-teal-dark); border-color: #9bd8d0; }
+.secondary-btn:hover { background: var(--sc-mint); }
+section h2 { color: var(--sc-navy); }
+input:focus, select:focus, textarea:focus { outline: 3px solid rgba(15,159,145,.16); border-color: var(--sc-teal); }
+footer { background: var(--sc-navy); color: #e7f0f5; }
+footer p { color: #c3d2de; }
+.admin-dashboard { background: transparent; border: 0; box-shadow: none; padding-top: 22px; }
+.admin-welcome { padding: 28px 30px; margin-bottom: 24px; border-radius: 22px; background: linear-gradient(120deg, #102a43 0%, #164e63 68%, #0f9f91 130%); box-shadow: 0 16px 36px rgba(16,42,67,.16); }
+.admin-welcome .admin-eyebrow { color: #a9eee3; }
+.admin-welcome h1 { color: #fff; margin: 0 0 9px; font-size: clamp(1.8rem, 3vw, 2.5rem); letter-spacing: -.04em; }
+.admin-welcome .dashboard-subtitle { color: #d7e9f0; margin-bottom: 0; }
+.admin-dashboard .dashboard-card { border-color: var(--sc-border); border-radius: 17px; background: linear-gradient(145deg, #fff, #f9fcfd); box-shadow: 0 8px 24px rgba(16,42,67,.055); }
+.admin-dashboard .dashboard-card::before { content: ''; position: absolute; left: 0; top: 0; width: 4px; height: 100%; background: var(--sc-teal); opacity: .9; }
+.admin-dashboard .dashboard-card h3 { color: var(--sc-muted); }
+.admin-dashboard .dashboard-card p { color: var(--sc-navy); }
+.admin-dashboard .business-model, .admin-dashboard .financial-summary, .admin-dashboard .order-history { border-color: var(--sc-border); box-shadow: 0 8px 24px rgba(16,42,67,.045); }
+.admin-dashboard .business-model h2, .admin-dashboard .financial-summary h2, .admin-dashboard .order-history h2 { color: var(--sc-navy); }
+.admin-dashboard .model-grid > div { background: #f4faf9; border-color: #dcefeb; }
+.admin-dashboard .model-grid h3 { color: var(--sc-teal-dark); }
+.admin-dashboard .financial-summary p { background: #f2f8fa; }
+.admin-dashboard .order-status { color: #087f66; background: #e0f6ef; }
+.admin-dashboard .dashboard-home-btn { background: var(--sc-navy); }
+.admin-dashboard .dashboard-home-btn:hover { background: var(--sc-teal-dark); }
+body.login-page { background: radial-gradient(ellipse at 10% 10%, #d9f4ef 0%, transparent 38%), linear-gradient(135deg, #edf4f8, #f8fbfd); }
+.login-card { border: 1px solid var(--sc-border); box-shadow: 0 24px 70px rgba(16,42,67,.13); }
+.login-brand { color: var(--sc-navy); }
+.login-card input:focus { outline: 3px solid rgba(15,159,145,.15); border-color: var(--sc-teal); }
+.back-home { color: var(--sc-teal-dark); }
+@media (max-width: 700px) {
+  .navbar { padding: 0 5%; }
+  nav { gap: 14px; }
+  .hero { padding: 58px 6%; }
+  .hero h1 { font-size: clamp(2.3rem, 9vw, 3.5rem); }
+  .admin-welcome { padding: 22px 18px; }
+}
