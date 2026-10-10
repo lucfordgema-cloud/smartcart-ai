@@ -630,6 +630,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     displayCart();
 
+    // Load admin data when the dashboard page opens
+    loadAdminDashboard();
+
+    // Show the latest saved checkout orders
+    loadOrderHistory();
+
 });
 
 // =================================
