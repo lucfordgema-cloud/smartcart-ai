@@ -1,0 +1,811 @@
+// ================================
+// SMARTCART AI - DAY 4
+// CART + BILLING SYSTEM
+// ================================
+
+
+// ================================
+// CART DATA
+// ================================
+
+let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+
+
+// ================================
+// SAVE CART
+// ================================
+
+function saveCart() {
+    localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+}
+
+
+// ================================
+// ADD PRODUCT TO CART
+// ================================
+
+function addProductToCart(productName, price) {
+
+    const existingProduct = shoppingCart.find(
+        product => product.name === productName
+    );
+
+    if (existingProduct) {
+        existingProduct.quantity += 1;
+    } else {
+        shoppingCart.push({
+            name: productName,
+            price: Number(price),
+            quantity: 1
+        });
+    }
+
+    saveCart();
+    updateCartCount();
+
+    alert(productName + " added to your cart! 🛒");
+}
+
+
+// ================================
+// UPDATE CART COUNT
+// ================================
+
+function updateCartCount() {
+
+    const cartCountElement = document.getElementById("cart-count");
+
+    if (cartCountElement) {
+
+        const totalItems = shoppingCart.reduce(
+            (total, product) => total + product.quantity,
+            0
+        );
+
+        cartCountElement.innerText = totalItems;
+    }
+}
+
+
+// ================================
+// SHOW CART
+// ================================
+
+function showCart() {
+    window.location.href = "cart.html";
+}
+
+
+// ================================
+// REMOVE PRODUCT
+// ================================
+
+function removeFromCart(index) {
+
+    shoppingCart.splice(index, 1);
+
+    saveCart();
+
+    displayCart();
+    updateCartCount();
+}
+
+
+// ================================
+// CHANGE QUANTITY
+// ================================
+
+function changeQuantity(index, change) {
+
+    shoppingCart[index].quantity += change;
+
+    if (shoppingCart[index].quantity <= 0) {
+        shoppingCart.splice(index, 1);
+    }
+
+    saveCart();
+
+    displayCart();
+    updateCartCount();
+}
+
+
+// ================================
+// DISPLAY CART
+// ================================
+
+function displayCart() {
+
+    const cartContainer =
+        document.getElementById("cart-items");
+
+    const subtotalElement =
+        document.getElementById("subtotal");
+
+    const gstElement =
+        document.getElementById("gst");
+
+    const totalElement =
+        document.getElementById("total");
+
+    if (!cartContainer) {
+        return;
+    }
+
+
+    // EMPTY CART
+
+    if (shoppingCart.length === 0) {
+
+        cartContainer.innerHTML =
+            "<h3>Your cart is empty 🛒</h3>";
+
+        if (subtotalElement) {
+            subtotalElement.innerText = "₹0";
+        }
+
+        if (gstElement) {
+            gstElement.innerText = "₹0";
+        }
+
+        if (totalElement) {
+            totalElement.innerText = "₹0";
+        }
+
+        return;
+    }
+
+
+    // DISPLAY PRODUCTS
+
+    cartContainer.innerHTML = "";
+
+    let subtotal = 0;
+
+    shoppingCart.forEach(function(product, index) {
+
+        const productTotal =
+            product.price * product.quantity;
+
+        subtotal += productTotal;
+
+        cartContainer.innerHTML += `
+            <div class="cart-item">
+
+                <div>
+                    <h3>${product.name}</h3>
+
+                    <p>
+                        Price: ₹${product.price.toLocaleString("en-IN")}
+                    </p>
+
+                    <p>
+                        Quantity:
+                        <button onclick="changeQuantity(${index}, -1)">−</button>
+
+                        <strong>${product.quantity}</strong>
+
+                        <button onclick="changeQuantity(${index}, 1)">+</button>
+                    </p>
+
+                    <p>
+                        Product Total:
+                        <strong>
+                            ₹${productTotal.toLocaleString("en-IN")}
+                        </strong>
+                    </p>
+                </div>
+
+                <button
+                    onclick="removeFromCart(${index})"
+                    class="remove-btn">
+                    🗑️ Remove
+                </button>
+
+            </div>
+        `;
+    });
+
+
+    // GST 18%
+
+    const gst = subtotal * 0.18;
+
+    const total = subtotal + gst;
+
+
+    // SHOW BILL
+
+    if (subtotalElement) {
+        subtotalElement.innerText =
+            "₹" + subtotal.toLocaleString("en-IN");
+    }
+
+    if (gstElement) {
+        gstElement.innerText =
+            "₹" + gst.toLocaleString("en-IN");
+    }
+
+    if (totalElement) {
+        totalElement.innerText =
+            "₹" + total.toLocaleString("en-IN");
+    }
+}
+
+
+// =================================
+// DAY 6 - REAL CHECKOUT SYSTEM
+// =================================
+
+function checkout() {
+
+    if (shoppingCart.length === 0) {
+
+        alert("Your cart is empty!");
+
+        return;
+    }
+
+
+    // Calculate subtotal
+
+    let subtotal = 0;
+
+    shoppingCart.forEach(function(product) {
+
+        subtotal +=
+            product.price * product.quantity;
+
+    });
+
+
+    // GST
+
+    const gst =
+        subtotal * 0.18;
+
+
+    // Final order value
+
+    const total =
+        subtotal + gst;
+
+
+    // Create order
+
+    const newOrder = {
+
+        orderId:
+            "SC" +
+            Date.now(),
+
+        date:
+            new Date().toLocaleDateString("en-IN"),
+
+        items:
+            [...shoppingCart],
+
+        subtotal:
+            subtotal,
+
+        gst:
+            gst,
+
+        total:
+            total
+
+    };
+
+
+    // Get previous orders
+
+    let orders =
+        JSON.parse(
+            localStorage.getItem("smartCartOrders")
+        ) || [];
+
+
+    // Add new order
+
+    orders.push(newOrder);
+
+
+    // Save orders
+
+    localStorage.setItem(
+        "smartCartOrders",
+        JSON.stringify(orders)
+    );
+
+
+    // Clear cart
+
+    shoppingCart = [];
+
+    saveCart();
+
+    displayCart();
+
+    updateCartCount();
+
+
+    alert(
+        "🎉 Order placed successfully!\n\n" +
+
+        "Order ID: " +
+        newOrder.orderId +
+
+        "\nTotal: ₹" +
+        total.toLocaleString("en-IN") +
+
+        "\n\nThank you for shopping with SmartCart AI!"
+    );
+}
+
+// ================================
+// AI RECOMMENDATION
+// ================================
+
+function getRecommendation() {
+
+    const category =
+        document.getElementById("category").value;
+
+    const budget =
+        Number(document.getElementById("budget").value);
+
+    const preference =
+        document.getElementById("preference").value;
+
+
+    let product = "";
+    let price = 0;
+    let rating = 0;
+    let reason = "";
+
+
+    if (category === "electronics") {
+
+        if (budget <= 1000) {
+
+            product = "Bluetooth Speaker";
+            price = 999;
+            rating = 4.3;
+
+            reason =
+                "Affordable electronics option within your budget.";
+
+        } else if (budget <= 5000) {
+
+            product = "Wireless Headphones";
+            price = 2499;
+            rating = 4.5;
+
+            reason =
+                "Good balance of price, rating and features.";
+
+        } else if (budget <= 10000) {
+
+            product = "Premium Smart Watch";
+            price = 7999;
+            rating = 4.6;
+
+            reason =
+                "Premium choice with strong features.";
+
+        } else {
+
+            product = "Smartphone";
+            price = 24999;
+            rating = 4.6;
+
+            reason =
+                "Suitable for a higher electronics budget.";
+        }
+
+
+    } else if (category === "fashion") {
+
+        if (budget < 2999) {
+
+            product = "Smart Backpack";
+            price = 1299;
+            rating = 4.3;
+
+            reason =
+                "Affordable fashion and lifestyle option.";
+
+        } else {
+
+            product = "Casual Jacket";
+            price = 2999;
+            rating = 4.4;
+
+            reason =
+                "Popular fashion choice with a good rating.";
+        }
+
+
+    } else if (category === "home") {
+
+        if (budget < 2000) {
+
+            product = "Smart Home Organizer";
+            price = 1499;
+            rating = 4.2;
+
+            reason =
+                "Useful home product at an affordable price.";
+
+        } else {
+
+            product = "Kitchen Storage Set";
+            price = 4999;
+            rating = 4.4;
+
+            reason =
+                "Useful home product for a higher budget.";
+        }
+
+
+    } else {
+
+        product = "Business & Marketing Book";
+        price = 599;
+        rating = 4.7;
+
+        reason =
+            "Highly rated learning option at a low price.";
+    }
+
+
+    let preferenceText = "";
+
+
+    if (preference === "rating") {
+
+        preferenceText =
+            "Selected for its strong customer rating.";
+
+    } else if (preference === "premium") {
+
+        preferenceText =
+            "Selected as a premium-quality option.";
+
+    } else if (preference === "price") {
+
+        preferenceText =
+            "Selected because it offers a lower-price option.";
+
+    } else {
+
+        preferenceText =
+            "Selected for good value for money.";
+    }
+
+
+    document.getElementById("recommendation-result").innerHTML =
+
+        "<strong>✨ SmartCart AI Recommendation</strong>" +
+
+        "<br><br>" +
+
+        "<strong style='font-size:22px;'>" +
+        product +
+        "</strong>" +
+
+        "<br><br>" +
+
+        "<strong>💰 Price:</strong> ₹" +
+        price.toLocaleString("en-IN") +
+
+        "<br>" +
+
+        "<strong>⭐ Rating:</strong> " +
+        rating +
+        "/5" +
+
+        "<br><br>" +
+
+        "<strong>🤖 Why recommended?</strong>" +
+
+        "<br>" +
+
+        "✓ " +
+        reason +
+
+        "<br>" +
+
+        "✓ " +
+        preferenceText +
+
+        "<br>" +
+
+        "✓ Matches your selected category and budget.";
+}
+
+
+// ================================
+// SEARCH + FILTER
+// ================================
+
+function filterProducts() {
+
+    const searchText =
+        document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    const selectedCategory =
+        document.getElementById("categoryFilter").value;
+
+
+    const selectedPrice =
+        document.getElementById("priceFilter").value;
+
+
+    const products =
+        document.querySelectorAll(".product-card");
+
+
+    let visibleProducts = 0;
+
+
+    products.forEach(function(product) {
+
+        const name =
+            product.dataset.name.toLowerCase();
+
+        const category =
+            product.dataset.category;
+
+        const price =
+            Number(product.dataset.price);
+
+
+        const matchesSearch =
+            name.includes(searchText);
+
+
+        const matchesCategory =
+            selectedCategory === "all" ||
+            category === selectedCategory;
+
+
+        let matchesPrice = true;
+
+
+        if (selectedPrice !== "all") {
+
+            matchesPrice =
+                price <= Number(selectedPrice);
+        }
+
+
+        if (
+            matchesSearch &&
+            matchesCategory &&
+            matchesPrice
+        ) {
+
+            product.style.display = "block";
+
+            visibleProducts++;
+
+        } else {
+
+            product.style.display = "none";
+        }
+    });
+
+
+    const noProducts =
+        document.getElementById("noProducts");
+
+
+    if (noProducts) {
+
+        if (visibleProducts === 0) {
+
+            noProducts.style.display = "block";
+
+        } else {
+
+            noProducts.style.display = "none";
+        }
+    }
+}
+
+
+// ================================
+// PAGE LOAD
+// ================================
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    updateCartCount();
+
+    displayCart();
+
+    // Load admin data when the dashboard page opens
+    loadAdminDashboard();
+
+    // Show the latest saved checkout orders
+    loadOrderHistory();
+
+});
+
+// =================================
+// DAY 7 - ADMIN DASHBOARD
+// =================================
+
+function loadAdminDashboard() {
+
+    const revenueElement = document.getElementById("dashboard-revenue");
+    if (!revenueElement) return;
+
+    const orders = JSON.parse(localStorage.getItem("smartCartOrders")) || [];
+
+    // Reset dashboard when there are no orders.
+    if (orders.length === 0) {
+        const zeroValues = {
+            "dashboard-revenue": "₹0",
+            "dashboard-orders": "0",
+            "dashboard-products": "0",
+            "dashboard-gst": "₹0",
+            "dashboard-profit": "₹0",
+            "dashboard-affiliate": "₹0",
+            "dashboard-cac": "₹0",
+            "dashboard-margin": "0%",
+            "dashboard-cogs": "₹0",
+            "dashboard-marketing": "₹0"
+        };
+        Object.entries(zeroValues).forEach(([id, value]) => {
+            const element = document.getElementById(id);
+            if (element) element.innerText = value;
+        });
+        return;
+    }
+
+    // Order totals include GST, so separate GST before estimating profit.
+    let grossCollections = 0;
+    let gstCollected = 0;
+    let productsSold = 0;
+
+    orders.forEach(function(order) {
+        grossCollections += Number(order.total) || 0;
+        gstCollected += Number(order.gst) || 0;
+
+        // Count actual units, not just distinct product lines.
+        (order.items || []).forEach(function(item) {
+            productsSold += Number(item.quantity) || 1;
+        });
+    });
+
+    const orderCount = orders.length;
+    const netSales = Math.max(0, grossCollections - gstCollected);
+
+    // DEMO ASSUMPTIONS — replace these rates with actual business figures.
+    const cogsRate = 0.60;          // Estimated product cost = 60% of sales excluding GST
+    const marketingRate = 0.10;     // Estimated marketing cost = 10% of sales excluding GST
+    const affiliateRate = 0.05;     // Illustrative affiliate income assumption; not tracked actual earnings
+
+    const productCost = netSales * cogsRate;
+    const marketingExpense = netSales * marketingRate;
+    const estimatedAffiliateIncome = netSales * affiliateRate;
+
+    // Estimated profit = sales excluding GST - operating costs + estimated affiliate income.
+    const profit = netSales - productCost - marketingExpense + estimatedAffiliateIncome;
+    const profitMargin = netSales > 0 ? (profit / netSales) * 100 : 0;
+    const cac = orderCount > 0 ? marketingExpense / orderCount : 0;
+
+    const formatINR = value => "₹" + value.toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+    const values = {
+        "dashboard-revenue": formatINR(grossCollections),
+        "dashboard-orders": String(orderCount),
+        "dashboard-products": String(productsSold),
+        "dashboard-gst": formatINR(gstCollected),
+        "dashboard-profit": formatINR(profit),
+        "dashboard-affiliate": formatINR(estimatedAffiliateIncome),
+        "dashboard-cac": formatINR(cac),
+        "dashboard-margin": profitMargin.toFixed(1) + "%",
+        "dashboard-cogs": formatINR(productCost),
+        "dashboard-marketing": formatINR(marketingExpense)
+    };
+
+    Object.entries(values).forEach(([id, value]) => {
+        const element = document.getElementById(id);
+        if (element) element.innerText = value;
+    });
+}
+
+// =================================
+// DAY 7 - ORDER HISTORY
+// =================================
+
+function loadOrderHistory() {
+
+    const historyContainer =
+        document.getElementById("order-history-list");
+
+    if (!historyContainer) {
+        return;
+    }
+
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem("smartCartOrders")
+        ) || [];
+
+
+    if (orders.length === 0) {
+
+        historyContainer.innerHTML =
+            "<p>No orders yet.</p>";
+
+        return;
+    }
+
+
+    historyContainer.innerHTML = "";
+
+
+    // Latest orders first
+
+    const latestOrders =
+        [...orders].reverse();
+
+
+    latestOrders.forEach(function(order) {
+
+        historyContainer.innerHTML += `
+
+            <div class="order-row">
+
+                <div>
+
+                    <strong>
+                        Order ID: ${order.orderId}
+                    </strong>
+
+                    <span>
+                        Date: ${order.date}
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        ₹${order.total.toLocaleString("en-IN")}
+                    </strong>
+
+                    <span>
+                        ${order.items.length} product(s)
+                    </span>
+
+                </div>
+
+
+                <div class="order-status">
+
+                    ✅ Completed
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+}
