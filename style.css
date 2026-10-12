@@ -901,3 +901,38 @@ body.login-page { background: radial-gradient(ellipse at 10% 10%, #d9f4ef 0%, tr
   .hero h1 { font-size: clamp(2.3rem, 9vw, 3.5rem); }
   .admin-welcome { padding: 22px 18px; }
 }
+
+
+/* Amazon affiliate buttons and disclosure */
+.amazon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 11px 16px;
+  border: 1px solid #102a43;
+  border-radius: 10px;
+  background: #102a43;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.amazon-btn:hover {
+  background: #087f75;
+  border-color: #087f75;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+.amazon-disclosure {
+  max-width: 900px;
+  margin: 12px auto 0;
+  padding: 0 16px;
+  color: #c3d2de;
+  font-size: .85rem;
+  line-height: 1.6;
+  text-align: center;
+}
