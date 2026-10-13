@@ -14,27 +14,23 @@
 
 </head>
 
-<body>
+<body data-page="admin">
 
     <!-- NAVBAR -->
 
     <nav class="navbar">
 
         <div class="logo">
-            🛒 SmartCart AI
+            🛒 SmartCart <span>AI</span>
         </div>
 
         <div class="nav-links">
 
-            <a href="index.html">
-                Home
-            </a>
+            <a href="index.html">🏠 Home</a>
+            <a href="cart.html">🛒 Cart</a>
+            <a href="admin.html" class="active">📊 Dashboard</a>
+            <button class="logout-btn" onclick="adminLogout()">Logout</button>
 
-            <a href="cart.html">
-                Cart 🛒
-            </a>
-
-        <a href="admin-login.html">Admin Login</a>
         </div>
 
     </nav>
@@ -44,11 +40,11 @@
 
     <section class="admin-dashboard">
 
-        <div class="admin-welcome"><p class="admin-eyebrow">SMARTCART AI · BUSINESS CONTROL CENTER</p><h1>📊 Admin Dashboard</h1>
+        <h1>📊 SmartCart AI Admin Dashboard</h1>
 
         <p class="dashboard-subtitle">
             Business Performance & Financial Overview
-        </p></div>
+        </p>
 
 
         <!-- KPI CARDS -->
@@ -163,7 +159,7 @@
 
         <div class="business-model">
 
-            <h2>💼 Business Model</h2>
+            <h2>💼 SmartCart AI Business Model</h2>
 
             <div class="model-grid">
 
@@ -214,7 +210,7 @@
 
         <div class="financial-summary">
 
-            <h2>🧾 Financial Overview</h2>
+            <h2>🧾 Financial Summary</h2>
 
             <p>
                 Revenue = Total value of customer purchases
@@ -238,7 +234,7 @@
 
 <div class="order-history">
 
-    <h2>📋 Recent Orders <span class="section-note">Latest checkout activity</span></h2>
+    <h2>📋 Recent Orders</h2>
 
     <div id="order-history-list">
 
