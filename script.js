@@ -630,6 +630,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     displayCart();
 
+    // Load admin data when the dashboard page opens
+    loadAdminDashboard();
+
+    // Show the latest saved checkout orders
+    loadOrderHistory();
+
 });
 
 // =================================
@@ -638,434 +644,87 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function loadAdminDashboard() {
 
-    const revenueElement =
-        document.getElementById("dashboard-revenue");
+    const revenueElement = document.getElementById("dashboard-revenue");
+    if (!revenueElement) return;
 
-    if (!revenueElement) {
-        return;
-    }
+    const orders = JSON.parse(localStorage.getItem("smartCartOrders")) || [];
 
-    // Get orders from localStorage
-
-    const orders =
-        JSON.parse(
-            localStorage.getItem("smartCartOrders")
-        ) || [];
-
-
-    // If no orders
-
+    // Reset dashboard when there are no orders.
     if (orders.length === 0) {
-
-        document.getElementById(
-            "dashboard-revenue"
-        ).innerText = "₹0";
-
-        document.getElementById(
-            "dashboard-orders"
-        ).innerText = "0";
-
-        document.getElementById(
-            "dashboard-products"
-        ).innerText = "0";
-
-        document.getElementById(
-            "dashboard-gst"
-        ).innerText = "₹0";
-
-        document.getElementById(
-            "dashboard-profit"
-        ).innerText = "₹0";
-
-        document.getElementById(
-            "dashboard-affiliate"
-        ).innerText = "₹0";
-
-        document.getElementById(
-            "dashboard-cac"
-        ).innerText = "₹0";
-
-        document.getElementById(
-            "dashboard-margin"
-        ).innerText = "0%";
-
-        document.getElementById(
-            "dashboard-cogs"
-        ).innerText = "₹0";
-
-        return;
-    }
-
-
-    // ================================
-    // CALCULATE BUSINESS DATA
-    // ================================
-
-    let revenue = 0;
-    let gst = 0;
-    let productsSold = 0;
-
-
-    orders.forEach(function(order) {
-
-        revenue += order.total;
-
-        gst += order.gst;
-
-        productsSold +=
-            order.items.length;
-
-    });
-
-
-    const orderCount =
-        orders.length;
-
-
-    // Affiliate Commission 5%
-
-    const affiliateCommission =
-        revenue * 0.05;
-
-
-    // Product Cost / COGS 60%
-
-    const productCost =
-        revenue * 0.60;
-
-
-    // Marketing Expense 10%
-
-    const marketingExpense =
-        revenue * 0.10;
-
-
-    // CAC
-
-    const cac =
-        orderCount > 0
-            ? marketingExpense / orderCount
-            : 0;
-
-
-    // Estimated Profit
-
-    const profit =
-        revenue -
-        gst -
-        productCost -
-        marketingExpense;
-
-
-    // Profit Margin
-
-    const profitMargin =
-        revenue > 0
-            ? (profit / revenue) * 100
-            : 0;
-
-    // ================================
-    // SHOW COGS
-    // ================================
-
-    document.getElementById(
-        "dashboard-cogs"
-    ).innerText =
-        "₹" +
-        productCost.toLocaleString("en-IN");
-
-    // ================================
-    // SHOW DATA
-    // ================================
-
-    document.getElementById(
-        "dashboard-revenue"
-    ).innerText =
-        "₹" +
-        revenue.toLocaleString("en-IN");
-
-
-    document.getElementById(
-        "dashboard-orders"
-    ).innerText =
-        orderCount;
-
-
-    document.getElementById(
-        "dashboard-products"
-    ).innerText =
-        productsSold;
-
-
-    document.getElementById(
-        "dashboard-gst"
-    ).innerText =
-        "₹" +
-        gst.toLocaleString("en-IN");
-
-
-    document.getElementById(
-        "dashboard-profit"
-    ).innerText =
-        "₹" +
-        profit.toLocaleString("en-IN");
-
-
-    document.getElementById(
-        "dashboard-affiliate"
-    ).innerText =
-        "₹" +
-        affiliateCommission.toLocaleString("en-IN");
-
-
-    document.getElementById(
-        "dashboard-cac"
-    ).innerText =
-        "₹" +
-        cac.toFixed(2);
-
-
-    document.getElementById(
-        "dashboard-margin"
-    ).innerText =
-        profitMargin.toFixed(1) +
-        "%";
-
-
-    document.getElementById(
-        "dashboard-cogs"
-    ).innerText =
-        "₹" +
-        productCost.toLocaleString("en-IN");
-
-}
-
-// =================================
-// DAY 6 - REAL ADMIN DASHBOARD
-// =================================
-
-function loadAdminDashboard() {
-
-    const revenueElement =
-        document.getElementById("dashboard-revenue");
-
-    if (!revenueElement) {
-        return;
-    }
-
-
-    // Get real orders
-
-    const orders =
-        JSON.parse(
-            localStorage.getItem("smartCartOrders")
-        ) || [];
-
-
-    // If there are no orders
-
-    if (orders.length === 0) {
-
-        document.getElementById(
-            "dashboard-revenue"
-        ).innerText = "₹0";
-
-        document.getElementById(
-            "dashboard-orders"
-        ).innerText = "0";
-
-        document.getElementById(
-            "dashboard-products"
-        ).innerText = "0";
-
-        document.getElementById(
-            "dashboard-gst"
-        ).innerText = "₹0";
-
-        document.getElementById(
-            "dashboard-profit"
-        ).innerText = "₹0";
-
-        document.getElementById(
-            "dashboard-affiliate"
-        ).innerText = "₹0";
-
-        document.getElementById(
-            "dashboard-cac"
-        ).innerText = "₹0";
-
-        document.getElementById(
-            "dashboard-margin"
-        ).innerText = "0%";
-
-        return;
-    }
-
-
-    // =================================
-    // CALCULATIONS
-    // =================================
-
-    let revenue = 0;
-
-    let gst = 0;
-
-    let productsSold = 0;
-
-
-    orders.forEach(function(order) {
-
-        revenue += order.subtotal;
-
-        gst += order.gst;
-
-
-        order.items.forEach(function(product) {
-
-            productsSold += product.quantity;
-
+        const zeroValues = {
+            "dashboard-revenue": "₹0",
+            "dashboard-orders": "0",
+            "dashboard-products": "0",
+            "dashboard-gst": "₹0",
+            "dashboard-profit": "₹0",
+            "dashboard-affiliate": "₹0",
+            "dashboard-cac": "₹0",
+            "dashboard-margin": "0%",
+            "dashboard-cogs": "₹0",
+            "dashboard-marketing": "₹0"
+        };
+        Object.entries(zeroValues).forEach(([id, value]) => {
+            const element = document.getElementById(id);
+            if (element) element.innerText = value;
         });
+        return;
+    }
 
+    // Order totals include GST, so separate GST before estimating profit.
+    let grossCollections = 0;
+    let gstCollected = 0;
+    let productsSold = 0;
+
+    orders.forEach(function(order) {
+        grossCollections += Number(order.total) || 0;
+        gstCollected += Number(order.gst) || 0;
+
+        // Count actual units, not just distinct product lines.
+        (order.items || []).forEach(function(item) {
+            productsSold += Number(item.quantity) || 1;
+        });
     });
 
+    const orderCount = orders.length;
+    const netSales = Math.max(0, grossCollections - gstCollected);
 
-    const totalOrders =
-        orders.length;
+    // DEMO ASSUMPTIONS — replace these rates with actual business figures.
+    const cogsRate = 0.60;          // Estimated product cost = 60% of sales excluding GST
+    const marketingRate = 0.10;     // Estimated marketing cost = 10% of sales excluding GST
+    const affiliateRate = 0.05;     // Illustrative affiliate income assumption; not tracked actual earnings
 
+    const productCost = netSales * cogsRate;
+    const marketingExpense = netSales * marketingRate;
+    const estimatedAffiliateIncome = netSales * affiliateRate;
 
-    // Affiliate commission
+    // Estimated profit = sales excluding GST - operating costs + estimated affiliate income.
+    const profit = netSales - productCost - marketingExpense + estimatedAffiliateIncome;
+    const profitMargin = netSales > 0 ? (profit / netSales) * 100 : 0;
+    const cac = orderCount > 0 ? marketingExpense / orderCount : 0;
 
-    const affiliateCommission =
-        revenue * 0.05;
+    const formatINR = value => "₹" + value.toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
+    const values = {
+        "dashboard-revenue": formatINR(grossCollections),
+        "dashboard-orders": String(orderCount),
+        "dashboard-products": String(productsSold),
+        "dashboard-gst": formatINR(gstCollected),
+        "dashboard-profit": formatINR(profit),
+        "dashboard-affiliate": formatINR(estimatedAffiliateIncome),
+        "dashboard-cac": formatINR(cac),
+        "dashboard-margin": profitMargin.toFixed(1) + "%",
+        "dashboard-cogs": formatINR(productCost),
+        "dashboard-marketing": formatINR(marketingExpense)
+    };
 
-    // Demo marketing expense
-
-    const marketingExpense =
-        15000;
-
-
-    // Customer Acquisition Cost
-
-    const cac =
-        totalOrders > 0
-            ? marketingExpense / totalOrders
-            : 0;
-
-
-    // Estimated profit
-
-    const profit =
-        revenue -
-        gst -
-        marketingExpense;
-
-
-    // Profit margin
-
-    const profitMargin =
-        revenue > 0
-            ? (profit / revenue) * 100
-            : 0;
-
-
-    // =================================
-    // SHOW DATA
-    // =================================
-
-    document.getElementById(
-        "dashboard-revenue"
-    ).innerText =
-        "₹" +
-        revenue.toLocaleString("en-IN");
-
-
-    document.getElementById(
-        "dashboard-orders"
-    ).innerText =
-        totalOrders;
-
-
-    document.getElementById(
-        "dashboard-products"
-    ).innerText =
-        productsSold;
-
-
-    document.getElementById(
-        "dashboard-gst"
-    ).innerText =
-        "₹" +
-        gst.toLocaleString("en-IN");
-
-
-    document.getElementById(
-        "dashboard-profit"
-    ).innerText =
-        "₹" +
-        profit.toLocaleString("en-IN");
-
-
-    document.getElementById(
-        "dashboard-affiliate"
-    ).innerText =
-        "₹" +
-        affiliateCommission.toLocaleString("en-IN");
-
-
-    document.getElementById(
-        "dashboard-cac"
-    ).innerText =
-        "₹" +
-        cac.toFixed(2);
-
-
-    document.getElementById(
-        "dashboard-margin"
-    ).innerText =
-        profitMargin.toFixed(1) + "%";
+    Object.entries(values).forEach(([id, value]) => {
+        const element = document.getElementById(id);
+        if (element) element.innerText = value;
+    });
 }
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        updateCartCount();
-
-        displayCart();
-
-        loadAdminDashboard();
-
-        loadOrderHistory();
-
-    }
-);
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        updateCartCount();
-
-        displayCart();
-
-        loadAdminDashboard();
-
-    }
-);
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        updateCartCount();
-
-        displayCart();
-
-        loadAdminDashboard();
-
-    }
-);
 
 // =================================
 // DAY 7 - ORDER HISTORY
@@ -1150,28 +809,3 @@ function loadOrderHistory() {
     });
 
 }
-
-// COLLEGE DEMO ADMIN ACCESS ONLY. This client-side check is not secure authentication.
-function adminLogin() {
-    const input = document.getElementById("admin-password");
-    const message = document.getElementById("login-message");
-    if (!input) return;
-    // Demo password for presentation testing. Change it before sharing the demo.
-    if (input.value === "SCdemo2026!") {
-        sessionStorage.setItem("smartCartAdminDemo", "true");
-        window.location.href = "admin.html";
-    } else if (message) {
-        message.textContent = "Incorrect demo password. Please try again.";
-    }
-}
-
-function adminLogout() {
-    sessionStorage.removeItem("smartCartAdminDemo");
-    window.location.href = "admin-login.html";
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    if (document.body && document.body.dataset.page === "admin" && sessionStorage.getItem("smartCartAdminDemo") !== "true") {
-        window.location.replace("admin-login.html");
-    }
-});

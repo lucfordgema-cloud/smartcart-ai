@@ -1,33 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartCart AI - Cart</title>
-<link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCart AI - Cart</title>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
+
 <body>
-<header class="navbar">
-  <div class="logo">🛒 SmartCart <span>AI</span></div>
-  <nav><a href="index.html">Home</a><a href="index.html#products">Products</a><a href="index.html#college-project">Project</a><a href="admin-login.html">Admin Login</a></nav>
-</header>
-<main class="cart-page">
-  <section class="cart-panel">
-    <p class="small-heading">YOUR SHOPPING SUMMARY</p>
-    <h1>Shopping Cart</h1>
-    <p>Review your selected items. This is a demo checkout for the college project.</p>
-    <div id="cart-items" class="cart-items"><p>Your cart is loading…</p></div>
-    <div class="cart-summary">
-      <div><span>Subtotal</span><strong id="subtotal">₹0</strong></div>
-      <div><span>Demo GST (18%)</span><strong id="gst">₹0</strong></div>
-      <div class="cart-total"><span>Demo total</span><strong id="total">₹0</strong></div>
-    </div>
-    <button class="primary-btn" onclick="checkout()">Place Demo Order</button>
-    <a class="secondary-btn" href="index.html#products">Continue Shopping</a>
-    <p class="project-note">This checkout does not take payment or create a real shipment. GST is an illustrative prototype setting and should not be treated as tax advice.</p>
-  </section>
-</main>
-<footer><div class="logo">🛒 SmartCart <span>AI</span></div><p>College Project Prototype • 2026</p><p class="amazon-disclosure">As an Amazon Associate I earn from qualifying purchases.</p></footer>
-<script src="script.js"></script>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🛒 SmartCart AI
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="cart.html">
+                Cart 🛒
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CART SECTION -->
+
+    <section class="cart-section">
+
+        <h1>🛒 Your Shopping Cart</h1>
+
+        <p>
+            Review your selected products before checkout.
+        </p>
+
+
+        <!-- PRODUCTS -->
+
+        <div id="cart-items">
+
+        </div>
+
+
+        <!-- BILL -->
+
+        <div class="bill-box">
+
+            <h2>🧾 Order Summary</h2>
+
+            <div class="bill-row">
+
+                <span>Subtotal</span>
+
+                <strong id="subtotal">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div class="bill-row">
+
+                <span>GST (18%)</span>
+
+                <strong id="gst">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <hr>
+
+
+            <div class="bill-row total-row">
+
+                <span>Total</span>
+
+                <strong id="total">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <button
+                onclick="checkout()"
+                class="checkout-btn">
+
+                ✅ Proceed to Checkout
+
+            </button>
+
+        </div>
+
+
+        <br>
+
+
+        <a href="index.html"
+            class="continue-shopping">
+
+            ← Continue Shopping
+
+        </a>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>
