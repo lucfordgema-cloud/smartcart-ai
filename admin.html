@@ -1,267 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartCart AI - Admin Dashboard</title>
-
     <link rel="stylesheet" href="style.css">
-
 </head>
-
-<body>
-
-    <!-- NAVBAR -->
-
+<body data-page="admin">
     <nav class="navbar">
-
-        <div class="logo">
-            🛒 SmartCart AI
-        </div>
-
+        <div class="logo">🛒 SmartCart <span>AI</span></div>
         <div class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="cart.html">
-                Cart 🛒
-            </a>
-
-        <a href="admin-login.html">Admin Login</a>
+            <a href="index.html">🏠 Home</a>
+            <a href="cart.html">🛒 Cart</a>
+            <a href="admin.html" class="active">📊 Dashboard</a>
+            <button class="logout-btn" onclick="adminLogout()">Logout</button>
         </div>
-
     </nav>
 
-
-    <!-- DASHBOARD -->
-
-    <section class="admin-dashboard">
-
-        <div class="admin-welcome"><p class="admin-eyebrow">SMARTCART AI · BUSINESS CONTROL CENTER</p><h1>📊 Admin Dashboard</h1>
-
-        <p class="dashboard-subtitle">
-            Business Performance & Financial Overview
-        </p></div>
-
-
-        <!-- KPI CARDS -->
-
-        <div class="dashboard-grid">
-
-
-            <div class="dashboard-card">
-
-                <h3>💰 Total Revenue</h3>
-
-                <p id="dashboard-revenue">
-                    ₹0
-                </p>
-
-            </div>
-
-
-            <div class="dashboard-card">
-
-                <h3>🛒 Total Orders</h3>
-
-                <p id="dashboard-orders">
-                    0
-                </p>
-
-            </div>
-
-
-            <div class="dashboard-card">
-
-                <h3>📦 Products Sold</h3>
-
-                <p id="dashboard-products">
-                    0
-                </p>
-
-            </div>
-
-
-            <div class="dashboard-card">
-
-                <h3>🧾 GST Collected</h3>
-
-                <p id="dashboard-gst">
-                    ₹0
-                </p>
-
-            </div>
-
-
-            <div class="dashboard-card">
-
-                <h3>📈 Estimated Profit</h3>
-
-                <p id="dashboard-profit">
-                    ₹0
-                </p>
-
-            </div>
-
-
-            <div class="dashboard-card">
-
-                <h3>🤝 Affiliate Commission</h3>
-
-                <p id="dashboard-affiliate">
-                    ₹0
-                </p>
-
-            </div>
-
-
-            <div class="dashboard-card">
-
-                <h3>👥 Customer Acquisition Cost</h3>
-
-                <p id="dashboard-cac">
-                    ₹0
-                </p>
-
-            </div>
-
-
-            <div class="dashboard-card">
-
-                <h3>📊 Profit Margin</h3>
-
-                <p id="dashboard-margin">
-                    0%
-                </p>
-
-            </div>
-
+    <main class="admin-dashboard">
+        <div class="admin-welcome">
+            <p class="forecast-eyebrow">BUSINESS PERFORMANCE</p>
+            <h1>📊 SmartCart AI Dashboard</h1>
+            <p class="dashboard-subtitle">Prototype activity and the separate Year-1 business-plan forecast.</p>
         </div>
 
-        <!-- PRODUCT COST / COGS -->
+        <section class="dashboard-section">
+            <div class="dashboard-section-heading">
+                <div><h2>🧾 Prototype Activity</h2><p>Demo orders stored in this browser only. These are not real business sales.</p></div>
+                <span class="forecast-tag">Live local demo data</span>
+            </div>
+            <div class="dashboard-grid">
+                <article class="dashboard-card"><h3>🛒 Demo Order Value</h3><p id="dashboard-revenue">₹0</p><small>Product subtotal before demo GST</small></article>
+                <article class="dashboard-card"><h3>📋 Demo Orders</h3><p id="dashboard-orders">0</p><small>Orders saved in this browser</small></article>
+                <article class="dashboard-card"><h3>📦 Units Sold</h3><p id="dashboard-products">0</p><small>Demo cart quantities</small></article>
+                <article class="dashboard-card"><h3>🧾 Demo GST</h3><p id="dashboard-gst">₹0</p><small>Illustrative 18% checkout setting</small></article>
+                <article class="dashboard-card"><h3>📦 Estimated COGS</h3><p id="dashboard-cogs">₹0</p><small>Assumption: 60% of subtotal</small></article>
+                <article class="dashboard-card"><h3>🤝 Affiliate Equivalent</h3><p id="dashboard-affiliate">₹0</p><small>Illustrative 3%; not tracked earnings</small></article>
+                <article class="dashboard-card"><h3>📈 Demo Contribution</h3><p id="dashboard-profit">₹0</p><small>Subtotal less assumed COGS</small></article>
+                <article class="dashboard-card"><h3>📊 Demo Margin</h3><p id="dashboard-margin">0%</p><small>Contribution ÷ subtotal</small></article>
+            </div>
+            <div class="dashboard-footnote">GST is shown as an illustrative checkout calculation and should not be treated as tax advice. This prototype does not verify affiliate clicks, purchases, commissions, customer acquisition or payments.</div>
+        </section>
 
-    <div class="dashboard-card">
+        <section class="dashboard-section plan-dashboard-section">
+            <div class="dashboard-section-heading">
+                <div><h2>📈 Business Plan Forecast — Year 1</h2><p>Figures from the SmartCart AI Business Plan Trailblazers 3.0 proposal.</p></div>
+                <span class="forecast-tag">Illustrative forecast</span>
+            </div>
+            <div class="dashboard-grid forecast-dashboard-grid">
+                <article class="dashboard-card"><h3>💰 Total Projected Revenue</h3><p id="plan-revenue">₹15.68L</p><small>Premium + affiliate + brand partnerships</small></article>
+                <article class="dashboard-card"><h3>💸 Operating Expenses</h3><p id="plan-expenses">₹14.00L</p><small>Proposed Year-1 operating plan</small></article>
+                <article class="dashboard-card"><h3>📈 Operating Surplus</h3><p id="plan-surplus">₹1.68L</p><small>Revenue less operating expenses</small></article>
+                <article class="dashboard-card"><h3>📊 Operating Margin</h3><p id="plan-margin">10.7%</p><small>Surplus ÷ projected revenue</small></article>
+                <article class="dashboard-card"><h3>👥 Illustrative CAC</h3><p id="plan-cac">₹600</p><small>₹12L marketing ÷ 2,000 paid users</small></article>
+                <article class="dashboard-card"><h3>💳 Premium Revenue</h3><p id="plan-premium">₹11.88L</p><small>2,000 users × ₹99 × 6 months</small></article>
+                <article class="dashboard-card"><h3>🔗 Affiliate Revenue</h3><p id="plan-affiliate">₹1.80L</p><small>2,000 clicks × 20% × ₹15,000 × 3%</small></article>
+                <article class="dashboard-card"><h3>🤝 Brand Partnerships</h3><p id="plan-partnerships">₹2.00L</p><small>Planning assumption</small></article>
+            </div>
+            <div class="forecast-assumptions">
+                <h3>Year-1 user assumptions</h3>
+                <div class="forecast-user-grid"><div><span>Registered</span><strong>50,000</strong></div><div><span>Active</span><strong>20,000</strong></div><div><span>Paid</span><strong>2,000</strong></div><div><span>Startup budget</span><strong>₹6.00L</strong></div></div>
+                <p>These figures are projections from the business plan, not actual results. The proposal separately assumes a marketing budget of ₹1.00L/month (₹12L/year); affiliate earnings depend on verified eligible transactions. Sponsored placements should be clearly labelled.</p>
+            </div>
+        </section>
 
-        <h3>📦 Product Cost (COGS)</h3>
-
-        <p id="dashboard-cogs">
-            ₹0
-        </p>
-
-    </div>
-
-</div>
-
-        <!-- BUSINESS MODEL -->
-
-        <div class="business-model">
-
-            <h2>💼 Business Model</h2>
-
+        <section class="business-model dashboard-section">
+            <div class="dashboard-section-heading"><div><h2>💼 Revenue Model</h2><p>Multiple potential income streams, subject to product validation.</p></div></div>
             <div class="model-grid">
-
-                <div>
-
-                    <h3>Affiliate Commission</h3>
-
-                    <p>
-                        SmartCart earns commission when
-                        customers purchase products through
-                        affiliate links.
-                    </p>
-
-                </div>
-
-
-                <div>
-
-                    <h3>Subscription Model</h3>
-
-                    <p>
-                        Future premium users can pay for
-                        advanced AI recommendations and
-                        personalized shopping features.
-                    </p>
-
-                </div>
-
-
-                <div>
-
-                    <h3>Customer Acquisition</h3>
-
-                    <p>
-                        Marketing and promotion expenses are
-                        tracked using Customer Acquisition Cost
-                        (CAC).
-                    </p>
-
-                </div>
-
+                <article><h3>Premium Subscription</h3><p>Proposed ₹99/month for advanced comparison and personalisation features. The paid tier should be tested with users before being treated as recurring revenue.</p></article>
+                <article><h3>Affiliate Commission</h3><p>Potential commission only when eligible purchases are made through verified, tracked affiliate links. Clicks and demo cart orders are not proof of earnings.</p></article>
+                <article><h3>Brand Partnerships</h3><p>Potential paid partnerships or sponsored placements. Any sponsored result must be clearly labelled and must not disguise advertising as an independent recommendation.</p></article>
             </div>
+        </section>
 
-        </div>
+        <section class="financial-summary dashboard-section">
+            <h2>🧮 Financial Definitions</h2>
+            <ul>
+                <li><strong>Demo order value:</strong> sum of saved order subtotals; not SmartCart's earned revenue.</li>
+                <li><strong>COGS assumption:</strong> 60% of demo subtotal for this prototype calculation only.</li>
+                <li><strong>Demo contribution:</strong> demo subtotal minus assumed COGS; it excludes actual payroll, marketing, tax and other operating costs.</li>
+                <li><strong>Projected operating surplus:</strong> ₹15.68L projected revenue − ₹14.00L projected operating expenses = ₹1.68L.</li>
+                <li><strong>GST:</strong> the cart's 18% setting is illustrative, not a determination of the correct tax treatment.</li>
+            </ul>
+        </section>
 
+        <section class="order-history dashboard-section">
+            <div class="dashboard-section-heading"><div><h2>📋 Recent Demo Orders</h2><p>Local browser records; not a shared or secure database.</p></div></div>
+            <div id="order-history-list"><p>No demo orders yet.</p></div>
+        </section>
+        <a href="index.html" class="dashboard-home-btn">← Back to SmartCart</a>
+    </main>
 
-        <!-- FINANCIAL SUMMARY -->
-
-        <div class="financial-summary">
-
-            <h2>🧾 Financial Overview</h2>
-
-            <p>
-                Revenue = Total value of customer purchases
-            </p>
-
-            <p>
-                GST = 18% of taxable sales
-            </p>
-
-            <p>
-                Affiliate Commission = 5% of sales
-            </p>
-
-            <p>
-                 Estimated Profit = Revenue − GST − COGS − Marketing Expense
-
-            </p>
-
-        </div>
-<!-- ORDER HISTORY -->
-
-<div class="order-history">
-
-    <h2>📋 Recent Orders <span class="section-note">Latest checkout activity</span></h2>
-
-    <div id="order-history-list">
-
-        <p>No orders yet.</p>
-
-    </div>
-
-</div>
-
-        <br>
-
-        <a href="index.html"
-            class="dashboard-home-btn">
-
-            ← Back to SmartCart
-
-        </a>
-
-    </section>
-
-
+    <footer><div class="logo">🛒 SmartCart <span>AI</span></div><p>College Project Prototype • 2026</p><p class="amazon-disclosure">As an Amazon Associate I earn from qualifying purchases.</p></footer>
     <script src="script.js"></script>
-
 </body>
-
 </html>

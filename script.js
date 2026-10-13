@@ -619,193 +619,131 @@ function filterProducts() {
     }
 }
 
-
 // ================================
-// PAGE LOAD
+// PAGE INITIALISATION
 // ================================
-
-document.addEventListener("DOMContentLoaded", function() {
-
+document.addEventListener("DOMContentLoaded", function () {
     updateCartCount();
-
     displayCart();
-
-    // Load admin data when the dashboard page opens
     loadAdminDashboard();
-
-    // Show the latest saved checkout orders
     loadOrderHistory();
-
 });
 
-// =================================
-// DAY 7 - ADMIN DASHBOARD
-// =================================
+// ================================
+// ADMIN DASHBOARD CALCULATIONS
+// ================================
+function formatINR(value) {
+    return "₹" + Number(value || 0).toLocaleString("en-IN", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 0
+    });
+}
+
+function readDemoOrders() {
+    try {
+        const stored = JSON.parse(localStorage.getItem("smartCartOrders") || "[]");
+        return Array.isArray(stored) ? stored : [];
+    } catch (error) {
+        return [];
+    }
+}
+
+function setTextIfPresent(id, value) {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+}
 
 function loadAdminDashboard() {
+    if (!document.getElementById("dashboard-revenue")) return;
 
-    const revenueElement = document.getElementById("dashboard-revenue");
-    if (!revenueElement) return;
+    const orders = readDemoOrders();
+    let subtotal = 0;
+    let gst = 0;
+    let unitsSold = 0;
 
-    const orders = JSON.parse(localStorage.getItem("smartCartOrders")) || [];
-
-    // Reset dashboard when there are no orders.
-    if (orders.length === 0) {
-        const zeroValues = {
-            "dashboard-revenue": "₹0",
-            "dashboard-orders": "0",
-            "dashboard-products": "0",
-            "dashboard-gst": "₹0",
-            "dashboard-profit": "₹0",
-            "dashboard-affiliate": "₹0",
-            "dashboard-cac": "₹0",
-            "dashboard-margin": "0%",
-            "dashboard-cogs": "₹0",
-            "dashboard-marketing": "₹0"
-        };
-        Object.entries(zeroValues).forEach(([id, value]) => {
-            const element = document.getElementById(id);
-            if (element) element.innerText = value;
-        });
-        return;
-    }
-
-    // Order totals include GST, so separate GST before estimating profit.
-    let grossCollections = 0;
-    let gstCollected = 0;
-    let productsSold = 0;
-
-    orders.forEach(function(order) {
-        grossCollections += Number(order.total) || 0;
-        gstCollected += Number(order.gst) || 0;
-
-        // Count actual units, not just distinct product lines.
-        (order.items || []).forEach(function(item) {
-            productsSold += Number(item.quantity) || 1;
+    orders.forEach(function (order) {
+        const orderSubtotal = Number(order.subtotal ?? order.total ?? 0);
+        subtotal += Number.isFinite(orderSubtotal) ? orderSubtotal : 0;
+        gst += Number(order.gst || 0);
+        (Array.isArray(order.items) ? order.items : []).forEach(function (item) {
+            unitsSold += Math.max(0, Number(item.quantity || 1));
         });
     });
 
-    const orderCount = orders.length;
-    const netSales = Math.max(0, grossCollections - gstCollected);
+    const assumedCogs = subtotal * 0.60;
+    const demoContribution = subtotal - assumedCogs;
+    const illustrativeAffiliateEquivalent = subtotal * 0.03;
+    const demoMargin = subtotal > 0 ? (demoContribution / subtotal) * 100 : 0;
 
-    // DEMO ASSUMPTIONS — replace these rates with actual business figures.
-    const cogsRate = 0.60;          // Estimated product cost = 60% of sales excluding GST
-    const marketingRate = 0.10;     // Estimated marketing cost = 10% of sales excluding GST
-    const affiliateRate = 0.05;     // Illustrative affiliate income assumption; not tracked actual earnings
-
-    const productCost = netSales * cogsRate;
-    const marketingExpense = netSales * marketingRate;
-    const estimatedAffiliateIncome = netSales * affiliateRate;
-
-    // Estimated profit = sales excluding GST - operating costs + estimated affiliate income.
-    const profit = netSales - productCost - marketingExpense + estimatedAffiliateIncome;
-    const profitMargin = netSales > 0 ? (profit / netSales) * 100 : 0;
-    const cac = orderCount > 0 ? marketingExpense / orderCount : 0;
-
-    const formatINR = value => "₹" + value.toLocaleString("en-IN", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
-
-    const values = {
-        "dashboard-revenue": formatINR(grossCollections),
-        "dashboard-orders": String(orderCount),
-        "dashboard-products": String(productsSold),
-        "dashboard-gst": formatINR(gstCollected),
-        "dashboard-profit": formatINR(profit),
-        "dashboard-affiliate": formatINR(estimatedAffiliateIncome),
-        "dashboard-cac": formatINR(cac),
-        "dashboard-margin": profitMargin.toFixed(1) + "%",
-        "dashboard-cogs": formatINR(productCost),
-        "dashboard-marketing": formatINR(marketingExpense)
-    };
-
-    Object.entries(values).forEach(([id, value]) => {
-        const element = document.getElementById(id);
-        if (element) element.innerText = value;
-    });
+    setTextIfPresent("dashboard-revenue", formatINR(subtotal));
+    setTextIfPresent("dashboard-orders", String(orders.length));
+    setTextIfPresent("dashboard-products", String(unitsSold));
+    setTextIfPresent("dashboard-gst", formatINR(gst));
+    setTextIfPresent("dashboard-cogs", formatINR(assumedCogs));
+    setTextIfPresent("dashboard-affiliate", formatINR(illustrativeAffiliateEquivalent));
+    setTextIfPresent("dashboard-profit", formatINR(demoContribution));
+    setTextIfPresent("dashboard-margin", demoMargin.toFixed(1) + "%");
 }
-
-// =================================
-// DAY 7 - ORDER HISTORY
-// =================================
 
 function loadOrderHistory() {
+    const historyContainer = document.getElementById("order-history-list");
+    if (!historyContainer) return;
 
-    const historyContainer =
-        document.getElementById("order-history-list");
-
-    if (!historyContainer) {
+    const orders = readDemoOrders();
+    if (!orders.length) {
+        historyContainer.innerHTML = "<p>No demo orders yet.</p>";
         return;
     }
-
-
-    const orders =
-        JSON.parse(
-            localStorage.getItem("smartCartOrders")
-        ) || [];
-
-
-    if (orders.length === 0) {
-
-        historyContainer.innerHTML =
-            "<p>No orders yet.</p>";
-
-        return;
-    }
-
 
     historyContainer.innerHTML = "";
+    [...orders].reverse().slice(0, 10).forEach(function (order) {
+        const row = document.createElement("div");
+        row.className = "order-row";
 
+        const left = document.createElement("div");
+        const id = document.createElement("strong");
+        id.textContent = "Order ID: " + String(order.orderId || "Demo order");
+        const date = document.createElement("span");
+        date.textContent = "Date: " + String(order.date || "—");
+        left.append(id, date);
 
-    // Latest orders first
+        const right = document.createElement("div");
+        const amount = document.createElement("strong");
+        amount.textContent = formatINR(order.subtotal ?? order.total ?? 0);
+        const count = document.createElement("span");
+        const itemCount = (Array.isArray(order.items) ? order.items : []).reduce((sum, item) => sum + Math.max(0, Number(item.quantity || 1)), 0);
+        count.textContent = itemCount + " unit(s)";
+        right.append(amount, count);
 
-    const latestOrders =
-        [...orders].reverse();
-
-
-    latestOrders.forEach(function(order) {
-
-        historyContainer.innerHTML += `
-
-            <div class="order-row">
-
-                <div>
-
-                    <strong>
-                        Order ID: ${order.orderId}
-                    </strong>
-
-                    <span>
-                        Date: ${order.date}
-                    </span>
-
-                </div>
-
-
-                <div>
-
-                    <strong>
-                        ₹${order.total.toLocaleString("en-IN")}
-                    </strong>
-
-                    <span>
-                        ${order.items.length} product(s)
-                    </span>
-
-                </div>
-
-
-                <div class="order-status">
-
-                    ✅ Completed
-
-                </div>
-
-            </div>
-
-        `;
-
+        const status = document.createElement("div");
+        status.className = "order-status";
+        status.textContent = "Demo record";
+        row.append(left, right, status);
+        historyContainer.appendChild(row);
     });
-
 }
+
+// COLLEGE DEMO ADMIN ACCESS ONLY. This client-side check is not secure authentication.
+function adminLogin() {
+    const input = document.getElementById("admin-password");
+    const message = document.getElementById("login-message");
+    if (!input) return;
+    // Demo password for presentation testing. Change it before sharing the demo.
+    if (input.value === "SCdemo2026!") {
+        sessionStorage.setItem("smartCartAdminDemo", "true");
+        window.location.href = "admin.html";
+    } else if (message) {
+        message.textContent = "Incorrect demo password. Please try again.";
+    }
+}
+
+function adminLogout() {
+    sessionStorage.removeItem("smartCartAdminDemo");
+    window.location.href = "admin-login.html";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (document.body && document.body.dataset.page === "admin" && sessionStorage.getItem("smartCartAdminDemo") !== "true") {
+        window.location.replace("admin-login.html");
+    }
+});
