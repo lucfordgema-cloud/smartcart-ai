@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header class="navbar">
         <div class="logo">🛒 SmartCart <span>AI</span></div>
         <div class="nav-links">
@@ -15,34 +14,21 @@
             <a href="index.html#college-project">Project</a>
         </div>
     </header>
-
     <main class="admin-login-page">
         <div class="login-card">
             <div class="login-icon">🔐</div>
-            <h1>Admin Login</h1>
-            <p>Enter the administrator password to access the SmartCart dashboard.</p>
-
+            <h1>Prototype Admin Login</h1>
+            <p>Enter the demo administrator password to open the SmartCart project dashboard.</p>
             <form onsubmit="event.preventDefault(); adminLogin();">
-                <input
-                    type="password"
-                    id="admin-password"
-                    placeholder="Enter admin password"
-                    autocomplete="current-password"
-                    required
-                >
-
-                <button type="submit" class="login-submit">
-                    Login to Dashboard
-                </button>
+                <label for="admin-password" class="sr-only">Demo admin password</label>
+                <input type="password" id="admin-password" placeholder="Enter demo admin password" autocomplete="current-password" required>
+                <button type="submit" class="login-submit">Login to Dashboard</button>
             </form>
-
             <p id="login-message" class="login-message" aria-live="polite"></p>
-            <p class="demo-password-note"><strong>College demo password:</strong> <code>SCdemo2026!</code><br><small>Demo-only client-side check; not secure authentication.</small></p>
-
+            <p class="demo-password-note"><strong>Demo-only notice:</strong> This prototype uses a client-side login check and is not secure authentication. Do not use it to protect real customer or confidential information.</p>
             <a href="index.html" class="back-home">← Back to SmartCart</a>
         </div>
     </main>
-
     <script src="script.js"></script>
 </body>
 </html>

@@ -3,908 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>SmartCart AI</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+<header class="navbar">
+    <div class="logo">🛒 SmartCart <span>AI</span></div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#products">Products</a>
+        <a href="#recommendation">Smart Recommendation</a>
+        <a href="#business-model">Business Model</a>
+        <a href="#college-project">Project</a>
+        <a href="#about">About</a>
+        <a href="cart.html">🛒 Cart</a>
+        <a href="admin-login.html">🔐 Admin Login</a>
+    </nav>
+    <button class="cart-btn" onclick="showCart()">🛒 Cart <span id="cart-count">0</span></button>
+</header>
 
-    <!-- Navigation Bar -->
-    <header class="navbar">
-
-        <div class="logo">
-            🛒 SmartCart <span>AI</span>
+<section class="hero">
+    <div class="hero-text">
+        <p class="small-heading">AI-POWERED SHOPPING DECISIONS</p>
+        <h1>From Search<br><span>to Decision.</span></h1>
+        <p>Tell us what you need. SmartCart helps you compare options by budget, category and preference—so you can make a clearer, more confident shopping decision.</p>
+        <div class="hero-buttons">
+            <a href="#products" class="primary-btn">Explore Products</a>
+            <a href="#recommendation" class="secondary-btn">Try Smart Recommendation</a>
         </div>
-
-        <nav>
-            <a href="#">Home</a>
-            <a href="#products">Products</a>
-            <a href="#recommendation">AI Recommendation</a>
-            <a href="#business-model">Business Model</a>
-            <a href="#college-project">Project</a>
-            <a href="#about">About</a>
-            <a href="cart.html">🛒 Cart</a>
-            <a href="admin-login.html">🔐 Admin Login</a>
-        </nav>
-
-        <button class="cart-btn" onclick="showCart()">
-            🛒 Cart <span id="cart-count">0</span>
-        </button>
-
-    </header>
-
-
-    <!-- Hero Section -->
-    <section class="hero">
-
-        <div class="hero-text">
-
-            <p class="small-heading">
-                AI-POWERED SHOPPING DECISIONS
-            </p>
-
-            <h1>
-                From Search<br>
-                <span>to Decision.</span>
-            </h1>
-
-            <p>
-                Tell us what you need. SmartCart helps you compare options
-                by budget, category and preference—so you can make a clearer,
-                more confident shopping decision.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="#products" class="primary-btn">
-                    Explore Products
-                </a>
-
-                <a href="#recommendation" class="secondary-btn">
-                    Try AI Recommendation
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="hero-card">
-
-            <div class="ai-icon">
-                ✨
-            </div>
-
-            <h3>Smart Recommendation</h3>
-
-            <p>
-                Share your budget and priorities. Get a simple,
-                explainable shortlist—not another marketplace.
-            </p>
-
-            <div class="recommendation-preview">
-                <span>⭐ 4.6</span>
-                <span>₹2,499</span>
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- Categories -->
-    <section class="categories">
-
-        <div class="section-heading">
-
-            <p>EXPLORE</p>
-
-            <h2>Shop by Category</h2>
-
-        </div>
-
-
-        <div class="category-grid">
-
-            <div class="category-card">
-                <div>💻</div>
-                <h3>Electronics</h3>
-                <p>Smart devices & gadgets</p>
-            </div>
-
-            <div class="category-card">
-                <div>👕</div>
-                <h3>Fashion</h3>
-                <p>Style for every occasion</p>
-            </div>
-
-            <div class="category-card">
-                <div>🏠</div>
-                <h3>Home & Kitchen</h3>
-                <p>Make your home smarter</p>
-            </div>
-
-            <div class="category-card">
-                <div>📚</div>
-                <h3>Books</h3>
-                <p>Learn something new</p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- AI Recommendation -->
-    <section id="recommendation" class="ai-section">
-
-        <div class="section-heading">
-
-            <p>SMART SHOPPING</p>
-
-            <h2>Get Your AI Recommendation</h2>
-
-            <span>
-                Tell SmartCart what you need.
-            </span>
-
-        </div>
-
-
-        <div class="ai-box">
-
-            <label>What are you looking for?</label>
-
-            <select id="category">
-
-                <option value="electronics">
-                    Electronics
-                </option>
-
-                <option value="fashion">
-                    Fashion
-                </option>
-
-                <option value="home">
-                    Home & Kitchen
-                </option>
-
-                <option value="books">
-                    Books
-                </option>
-
-            </select>
-
-
-            <label>Your Budget</label>
-
-            <select id="budget">
-
-                <option value="1000">
-                    Under ₹1,000
-                </option>
-
-                <option value="5000">
-                    ₹1,000 - ₹5,000
-                </option>
-
-                <option value="10000">
-                    ₹5,000 - ₹10,000
-                </option>
-
-                <option value="50000">
-                    ₹10,000+
-                </option>
-
-            </select>
-
-
-            <label>Your Preference</label>
-
-            <select id="preference">
-
-                <option value="value">
-                    Value for Money
-                </option>
-
-                <option value="rating">
-                    Best Rating
-                </option>
-
-                <option value="premium">
-                    Premium Quality
-                </option>
-
-                <option value="price">
-                    Lowest Price
-                </option>
-
-            </select>
-
-
-            <button class="recommend-btn"
-                    onclick="getRecommendation()">
-
-                ✨ Get AI Recommendation
-
-            </button>
-
-
-            <div id="recommendation-result"
-                 class="result-box">
-
-                Your personalized recommendation
-                will appear here.
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- Products -->
-<section id="products" class="products-section">
-
-    <div class="section-heading">
-
-        <p>SMART SHOPPING</p>
-
-        <h2>Explore Products</h2>
-
-        <span>
-            Find products that match your needs and budget.
-        </span>
-
     </div>
-
-
-    <!-- Search & Filter -->
-
-    <div class="product-controls">
-
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="🔍 Search products..."
-            onkeyup="filterProducts()"
-        >
-
-
-        <select
-            id="categoryFilter"
-            onchange="filterProducts()"
-        >
-
-            <option value="all">
-                All Categories
-            </option>
-
-            <option value="electronics">
-                Electronics
-            </option>
-
-            <option value="fashion">
-                Fashion
-            </option>
-
-            <option value="home">
-                Home & Kitchen
-            </option>
-
-            <option value="books">
-                Books
-            </option>
-
-        </select>
-
-
-        <select
-            id="priceFilter"
-            onchange="filterProducts()"
-        >
-
-            <option value="all">
-                All Prices
-            </option>
-
-            <option value="1000">
-                Under ₹1,000
-            </option>
-
-            <option value="5000">
-                Under ₹5,000
-            </option>
-
-            <option value="10000">
-                Under ₹10,000
-            </option>
-
-        </select>
-
+    <div class="hero-card">
+        <div class="ai-icon">✨</div>
+        <h3>Smart Recommendation</h3>
+        <p>Share your budget and priorities. Get a simple, explainable shortlist—not another marketplace.</p>
+        <div class="recommendation-preview"><span>⭐ 4.6</span><span>₹2,499</span></div>
     </div>
-
-
-    <!-- Products -->
-
-    <div class="product-grid" id="productGrid">
-
-
-        <!-- Product 1 -->
-
-        <div
-            class="product-card"
-            data-category="electronics"
-            data-price="2499"
-            data-name="wireless headphones"
-        >
-
-            <div class="product-image">
-                🎧
-            </div>
-
-            <span class="product-category">
-                Electronics
-            </span>
-
-            <h3>
-                Wireless Headphones
-            </h3>
-
-            <p class="rating">
-                ⭐ 4.5/5
-            </p>
-
-            <h3>
-                ₹2,499
-            </h3>
-
-            <button
-                onclick="addProductToCart(
-                    'Wireless Headphones',
-                    2499
-                )"
-            >
-                Add to Cart
-            </button>
-
-            <a
-                href="https://link.amazon/B08OMAWTj"
-                class="amazon-btn"
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                aria-label="View Wireless Headphones on Amazon"
-            >
-                View on Amazon ↗
-            </a>
-
-        </div>
-
-
-        <!-- Product 2 -->
-
-        <div
-            class="product-card"
-            data-category="electronics"
-            data-price="3999"
-            data-name="smart watch"
-        >
-
-            <div class="product-image">
-                ⌚
-            </div>
-
-            <span class="product-category">
-                Electronics
-            </span>
-
-            <h3>
-                Smart Watch
-            </h3>
-
-            <p class="rating">
-                ⭐ 4.4/5
-            </p>
-
-            <h3>
-                ₹3,999
-            </h3>
-
-            <button
-                onclick="addProductToCart(
-                    'Smart Watch',
-                    3999
-                )"
-            >
-                Add to Cart
-            </button>
-
-            <a
-                href="https://link.amazon/B07CnDCTd"
-                class="amazon-btn"
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                aria-label="View Smart Watch on Amazon"
-            >
-                View on Amazon ↗
-            </a>
-
-        </div>
-
-
-        <!-- Product 3 -->
-
-        <div
-            class="product-card"
-            data-category="fashion"
-            data-price="1299"
-            data-name="smart backpack"
-        >
-
-            <div class="product-image">
-                🎒
-            </div>
-
-            <span class="product-category">
-                Fashion
-            </span>
-
-            <h3>
-                Smart Backpack
-            </h3>
-
-            <p class="rating">
-                ⭐ 4.3/5
-            </p>
-
-            <h3>
-                ₹1,299
-            </h3>
-
-            <button
-                onclick="addProductToCart(
-                    'Smart Backpack',
-                    1299
-                )"
-            >
-                Add to Cart
-            </button>
-
-            <a
-                href="https://link.amazon/B0a3elq27"
-                class="amazon-btn"
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                aria-label="View Smart Backpack on Amazon"
-            >
-                View on Amazon ↗
-            </a>
-
-        </div>
-
-
-        <!-- Product 4 -->
-
-        <div
-            class="product-card"
-            data-category="electronics"
-            data-price="24999"
-            data-name="smartphone"
-        >
-
-            <div class="product-image">
-                📱
-            </div>
-
-            <span class="product-category">
-                Electronics
-            </span>
-
-            <h3>
-                Smartphone
-            </h3>
-
-            <p class="rating">
-                ⭐ 4.6/5
-            </p>
-
-            <h3>
-                ₹24,999
-            </h3>
-
-            <button
-                onclick="addProductToCart(
-                    'Smartphone',
-                    24999
-                )"
-            >
-                Add to Cart
-            </button>
-
-            <a
-                href="https://link.amazon/B01LTPc0l"
-                class="amazon-btn"
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                aria-label="View Smartphone on Amazon"
-            >
-                View on Amazon ↗
-            </a>
-
-        </div>
-
-
-        <!-- Product 5 -->
-
-        <div
-            class="product-card"
-            data-category="fashion"
-            data-price="2999"
-            data-name="casual jacket"
-        >
-
-            <div class="product-image">
-                🧥
-            </div>
-
-            <span class="product-category">
-                Fashion
-            </span>
-
-            <h3>
-                Casual Jacket
-            </h3>
-
-            <p class="rating">
-                ⭐ 4.4/5
-            </p>
-
-            <h3>
-                ₹2,999
-            </h3>
-
-            <button
-                onclick="addProductToCart(
-                    'Casual Jacket',
-                    2999
-                )"
-            >
-                Add to Cart
-            </button>
-
-            <a
-                href="https://link.amazon/B01AerGeQ"
-                class="amazon-btn"
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                aria-label="View product 5 on Amazon"
-            >
-                View on Amazon ↗
-            </a>
-
-
-        </div>
-
-
-        <!-- Product 6 -->
-
-        <div
-            class="product-card"
-            data-category="home"
-            data-price="1499"
-            data-name="home organizer"
-        >
-
-            <div class="product-image">
-                🏠
-            </div>
-
-            <span class="product-category">
-                Home & Kitchen
-            </span>
-
-            <h3>
-                Smart Home Organizer
-            </h3>
-
-            <p class="rating">
-                ⭐ 4.2/5
-            </p>
-
-            <h3>
-                ₹1,499
-            </h3>
-
-            <button
-                onclick="addProductToCart(
-                    'Smart Home Organizer',
-                    1499
-                )"
-            >
-                Add to Cart
-            </button>
-
-            <a
-                href="https://link.amazon/B0j19z7xU"
-                class="amazon-btn"
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                aria-label="View product 6 on Amazon"
-            >
-                View on Amazon ↗
-            </a>
-
-
-        </div>
-
-
-        <!-- Product 7 -->
-
-        <div
-            class="product-card"
-            data-category="books"
-            data-price="599"
-            data-name="business book"
-        >
-
-            <div class="product-image">
-                📚
-            </div>
-
-            <span class="product-category">
-                Books
-            </span>
-
-            <h3>
-                Business & Marketing Book
-            </h3>
-
-            <p class="rating">
-                ⭐ 4.7/5
-            </p>
-
-            <h3>
-                ₹599
-            </h3>
-
-            <button
-                onclick="addProductToCart(
-                    'Business & Marketing Book',
-                    599
-                )"
-            >
-                Add to Cart
-            </button>
-
-            <a
-                href="https://link.amazon/B07b2qt5Y"
-                class="amazon-btn"
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                aria-label="View product 7 on Amazon"
-            >
-                View on Amazon ↗
-            </a>
-
-
-        </div>
-
-
-        <!-- Product 8 -->
-
-        <div
-            class="product-card"
-            data-category="home"
-            data-price="4999"
-            data-name="smart kitchen set"
-        >
-
-            <div class="product-image">
-                🍳
-            </div>
-
-            <span class="product-category">
-                Home & Kitchen
-            </span>
-
-            <h3>
-                Smart Kitchen Set
-            </h3>
-
-            <p class="rating">
-                ⭐ 4.5/5
-            </p>
-
-            <h3>
-                ₹4,999
-            </h3>
-
-            <button
-                onclick="addProductToCart(
-                    'Smart Kitchen Set',
-                    4999
-                )"
-            >
-                Add to Cart
-            </button>
-
-            <a
-                href="https://link.amazon/B01hTSN9I"
-                class="amazon-btn"
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                aria-label="View product 8 on Amazon"
-            >
-                View on Amazon ↗
-            </a>
-
-
-        </div>
-
-    </div>
-
-
-    <p
-        id="noProducts"
-        class="no-products"
-    >
-        No products found.
-    </p>
-
 </section>
 
+<section class="categories">
+    <div class="section-heading"><p>EXPLORE</p><h2>Shop by Category</h2></div>
+    <div class="category-grid">
+        <div class="category-card"><div>💻</div><h3>Electronics</h3><p>Smart devices &amp; gadgets</p></div>
+        <div class="category-card"><div>👕</div><h3>Fashion</h3><p>Style for every occasion</p></div>
+        <div class="category-card"><div>🏠</div><h3>Home &amp; Kitchen</h3><p>Make your home smarter</p></div>
+        <div class="category-card"><div>📚</div><h3>Books</h3><p>Learn something new</p></div>
+    </div>
+</section>
 
+<section id="recommendation" class="ai-section">
+    <div class="section-heading"><p>SMART SHOPPING</p><h2>Get Your Smart Recommendation</h2><span>Choose your needs and preferences to see a rule-based prototype suggestion.</span></div>
+    <div class="ai-box">
+        <label for="category">What are you looking for?</label>
+        <select id="category">
+            <option value="electronics">Electronics</option><option value="fashion">Fashion</option>
+            <option value="home">Home &amp; Kitchen</option><option value="books">Books</option>
+        </select>
+        <label for="budget">Your Budget</label>
+        <select id="budget">
+            <option value="1000">Under ₹1,000</option><option value="5000">₹1,000 - ₹5,000</option>
+            <option value="10000">₹5,000 - ₹10,000</option><option value="50000">₹10,000+</option>
+        </select>
+        <label for="preference">Your Preference</label>
+        <select id="preference">
+            <option value="value">Value for Money</option><option value="rating">Best Rating</option>
+            <option value="premium">Premium Quality</option><option value="price">Lowest Price</option>
+        </select>
+        <button class="recommend-btn" onclick="getRecommendation()">✨ Get My Recommendation</button>
+        <div id="recommendation-result" class="result-box">Your recommendation will appear here.</div>
+        <p class="project-note">Prototype note: recommendations currently use predefined rules, not a trained AI model.</p>
+    </div>
+</section>
 
-
-    <!-- BUSINESS PLAN SNAPSHOT: ILLUSTRATIVE YEAR-1 FORECAST -->
-    <section id="business-model" class="business-plan-section">
-        <div class="section-heading">
-            <p>BUSINESS PLAN TRAILBLAZERS 3.0</p>
-            <h2>A Practical, Trust-Led Business Model</h2>
-            <span>Freemium shopping support, with proposed premium tools and clearly disclosed partnerships.</span>
+<section id="products" class="products-section">
+    <div class="section-heading"><p>SMART SHOPPING</p><h2>Explore Products</h2><span>Find products that match your needs and budget.</span></div>
+    <div class="product-controls">
+        <input type="text" id="searchInput" placeholder="🔍 Search products..." onkeyup="filterProducts()" aria-label="Search products">
+        <select id="categoryFilter" onchange="filterProducts()" aria-label="Filter by category">
+            <option value="all">All Categories</option><option value="electronics">Electronics</option>
+            <option value="fashion">Fashion</option><option value="home">Home &amp; Kitchen</option><option value="books">Books</option>
+        </select>
+        <select id="priceFilter" onchange="filterProducts()" aria-label="Filter by maximum price">
+            <option value="all">All Prices</option><option value="1000">Under ₹1,000</option>
+            <option value="5000">Under ₹5,000</option><option value="10000">Under ₹10,000</option>
+        </select>
+    </div>
+    <div class="product-grid" id="productGrid">
+        <div class="product-card" data-category="electronics" data-price="2499" data-name="wireless headphones">
+            <div class="product-image">🎧</div><span class="product-category">Electronics</span><h3>Wireless Headphones</h3><p class="rating">⭐ 4.5/5</p><h3>₹2,499</h3>
+            <button onclick="addProductToCart('Wireless Headphones',2499)">Add to Cart</button>
+            <a href="https://link.amazon/B08OMAWTj" class="amazon-btn" target="_blank" rel="sponsored noopener noreferrer" aria-label="View Wireless Headphones on Amazon">View on Amazon ↗</a>
         </div>
-        <div class="business-plan-grid">
-            <article class="business-plan-card">
-                <div class="plan-icon">🧠</div>
-                <h3>Decision Support</h3>
-                <p>Recommendations should explain <strong>why an option fits</strong> using budget, preference, price, ratings and available review themes.</p>
-            </article>
-            <article class="business-plan-card">
-                <div class="plan-icon">💳</div>
-                <h3>Freemium + Premium</h3>
-                <p>Core discovery remains free. The plan proposes an optional <strong>₹99/month</strong> premium tier for advanced comparisons and personalisation.</p>
-            </article>
-            <article class="business-plan-card">
-                <div class="plan-icon">🤝</div>
-                <h3>Responsible Monetisation</h3>
-                <p>Affiliate links and brand partnerships can support revenue, with clear disclosures and recommendations designed around shopper fit.</p>
-            </article>
+        <div class="product-card" data-category="electronics" data-price="3999" data-name="smart watch">
+            <div class="product-image">⌚</div><span class="product-category">Electronics</span><h3>Smart Watch</h3><p class="rating">⭐ 4.4/5</p><h3>₹3,999</h3>
+            <button onclick="addProductToCart('Smart Watch',3999)">Add to Cart</button>
+            <a href="https://link.amazon/B07CnDCTd" class="amazon-btn" target="_blank" rel="sponsored noopener noreferrer" aria-label="View Smart Watch on Amazon">View on Amazon ↗</a>
         </div>
-        <div class="forecast-panel">
-            <div class="forecast-heading">
-                <div>
-                    <p class="forecast-eyebrow">YEAR 1 • BUSINESS PLAN ESTIMATE</p>
-                    <h3>Illustrative Financial Snapshot</h3>
-                </div>
-                <span class="forecast-tag">Projection, not actual results</span>
-            </div>
-            <div class="forecast-metrics">
-                <div><span>Registered users</span><strong>50,000</strong></div>
-                <div><span>Active users</span><strong>20,000</strong></div>
-                <div><span>Paid users</span><strong>2,000</strong></div>
-                <div><span>Total revenue</span><strong>₹15.68L</strong></div>
-                <div><span>Operating expenses</span><strong>₹14.00L</strong></div>
-                <div><span>Operating surplus</span><strong>₹1.68L</strong></div>
-            </div>
-            <p class="forecast-note">Plan assumptions: ₹11.88L premium revenue, ₹1.80L affiliate revenue and ₹2.00L brand partnerships. Estimated operating margin: 10.7%; illustrative CAC proxy: ₹600 per paid customer. These are planning estimates, not current earnings or validated demand.</p>
+        <div class="product-card" data-category="fashion" data-price="1299" data-name="smart backpack">
+            <div class="product-image">🎒</div><span class="product-category">Fashion</span><h3>Smart Backpack</h3><p class="rating">⭐ 4.3/5</p><h3>₹1,299</h3>
+            <button onclick="addProductToCart('Smart Backpack',1299)">Add to Cart</button>
+            <a href="https://link.amazon/B0a3elq27" class="amazon-btn" target="_blank" rel="sponsored noopener noreferrer" aria-label="View Smart Backpack on Amazon">View on Amazon ↗</a>
         </div>
-        <p class="project-note"><strong>Trust, Privacy & Inclusion:</strong> SmartCart AI aims to protect user privacy by collecting only necessary information, explaining product recommendations and clearly labelling sponsored results. Future improvements will include better preference controls, enhanced accessibility and multilingual support.</p>
-    </section>
-
-    <!-- COLLEGE PROJECT OVERVIEW -->
-    <section id="college-project" class="college-project-section">
-        <div class="section-heading">
-            <p>COLLEGE PROJECT • B.COM</p>
-            <h2>SmartCart AI: Project Overview</h2>
-            <span>An AI-assisted decision layer that helps shoppers move from endless searching to a shortlist that fits their needs and budget.</span>
+        <div class="product-card" data-category="electronics" data-price="24999" data-name="smartphone">
+            <div class="product-image">📱</div><span class="product-category">Electronics</span><h3>Smartphone</h3><p class="rating">⭐ 4.6/5</p><h3>₹24,999</h3>
+            <button onclick="addProductToCart('Smartphone',24999)">Add to Cart</button>
+            <a href="https://link.amazon/B01LTPc0l" class="amazon-btn" target="_blank" rel="sponsored noopener noreferrer" aria-label="View Smartphone on Amazon">View on Amazon ↗</a>
         </div>
-        <div class="project-intro-grid">
-            <article class="project-info-card">
-                <div class="project-icon">🎯</div>
-                <h3>Problem Statement</h3>
-                <p>Online shoppers can face too many choices, scattered product details and uncertainty about which option best matches their budget and priorities.</p>
-            </article>
-            <article class="project-info-card">
-                <div class="project-icon">💡</div>
-                <h3>Proposed Solution</h3>
-                <p>SmartCart AI acts as a decision-making layer: it organises product options and gives a reason for a recommendation based on budget, category and preference. The current website demonstrates this with rule-based logic.</p>
-            </article>
-            <article class="project-info-card">
-                <div class="project-icon">🤝</div>
-                <h3>Inclusive Design Goal</h3>
-                <p>The concept aims to make product discovery clearer for budget-conscious shoppers. Future improvements can include multilingual guidance and stronger accessibility support.</p>
-            </article>
+        <div class="product-card" data-category="fashion" data-price="2999" data-name="casual jacket">
+            <div class="product-image">🧥</div><span class="product-category">Fashion</span><h3>Casual Jacket</h3><p class="rating">⭐ 4.4/5</p><h3>₹2,999</h3>
+            <button onclick="addProductToCart('Casual Jacket',2999)">Add to Cart</button>
+            <a href="https://link.amazon/B01AerGeQ" class="amazon-btn" target="_blank" rel="sponsored noopener noreferrer" aria-label="View Casual Jacket on Amazon">View on Amazon ↗</a>
         </div>
-        <div class="project-details-grid">
-            <div class="project-details-card">
-                <h3>⚙️ Key Features</h3>
-                <ul>
-                    <li>Browse products across multiple categories</li>
-                    <li>Filter products by search, category and budget</li>
-                    <li>Receive rule-based suggestions with a simple fit explanation</li>
-                    <li>Compare options by price, category and rating</li>
-                    <li>Add items to cart and try a demo checkout</li>
-                    <li>View sample order and business metrics in the admin dashboard</li>
-                </ul>
-            </div>
-            <div class="project-details-card">
-                <h3>💼 Business Model</h3>
-                <ul>
-                    <li><strong>Premium subscription:</strong> proposed ₹99/month for advanced decision support, if validated</li>
-                    <li><strong>Affiliate commission:</strong> potential income from eligible, tracked purchases</li>
-                    <li><strong>Brand partnerships:</strong> clearly labelled sponsored placements that do not override user fit</li>
-                </ul>
-            </div>
-            <div class="project-details-card">
-                <h3>📊 Business & Financial Insights</h3>
-                <ul>
-                    <li>Revenue, cost and estimated profit</li>
-                    <li>GST shown as a demo checkout calculation</li>
-                    <li>Cost of goods sold (COGS) assumptions</li>
-                    <li>Affiliate commission and profit margin</li>
-                    <li>Order records and basic management reporting</li>
-                </ul>
-            </div>
+        <div class="product-card" data-category="home" data-price="1499" data-name="home organizer">
+            <div class="product-image">🏠</div><span class="product-category">Home &amp; Kitchen</span><h3>Smart Home Organizer</h3><p class="rating">⭐ 4.2/5</p><h3>₹1,499</h3>
+            <button onclick="addProductToCart('Smart Home Organizer',1499)">Add to Cart</button>
+            <a href="https://link.amazon/B0j19z7xU" class="amazon-btn" target="_blank" rel="sponsored noopener noreferrer" aria-label="View Smart Home Organizer on Amazon">View on Amazon ↗</a>
         </div>
-        <div class="project-note">
-            <strong>Prototype note:</strong> The recommendation feature currently uses predefined rules; it is not connected to a trained AI model. Orders and dashboard figures are stored in this browser for demonstration, not in a secure online database. Financial percentages are illustrative assumptions, not verified business results.
+        <div class="product-card" data-category="books" data-price="599" data-name="business book">
+            <div class="product-image">📚</div><span class="product-category">Books</span><h3>Business &amp; Marketing Book</h3><p class="rating">⭐ 4.7/5</p><h3>₹599</h3>
+            <button onclick="addProductToCart('Business & Marketing Book',599)">Add to Cart</button>
+            <a href="https://link.amazon/B07b2qt5Y" class="amazon-btn" target="_blank" rel="sponsored noopener noreferrer" aria-label="View Business and Marketing Book on Amazon">View on Amazon ↗</a>
         </div>
-    </section>
-
-
-    <!-- About -->
-    <section id="about" class="about-section">
-
-        <p>ABOUT SMARTCART AI</p>
-
-        <h2>
-            Making Online Shopping Smarter
-        </h2>
-
-        <p>
-            SmartCart AI combines intelligent recommendations
-            with a simple shopping experience to help customers
-            make better purchasing decisions.
-        </p>
-
-    </section>
-
-
-
-    <!-- Footer -->
-    <footer>
-
-        <div class="logo">
-            🛒 SmartCart <span>AI</span>
+        <div class="product-card" data-category="home" data-price="4999" data-name="smart kitchen set">
+            <div class="product-image">🍳</div><span class="product-category">Home &amp; Kitchen</span><h3>Smart Kitchen Set</h3><p class="rating">⭐ 4.5/5</p><h3>₹4,999</h3>
+            <button onclick="addProductToCart('Smart Kitchen Set',4999)">Add to Cart</button>
+            <a href="https://link.amazon/B01hTSN9I" class="amazon-btn" target="_blank" rel="sponsored noopener noreferrer" aria-label="View Smart Kitchen Set on Amazon">View on Amazon ↗</a>
         </div>
+    </div>
+    <p id="noProducts" class="no-products">No products found.</p>
+    <p class="amazon-disclosure">Affiliate disclosure: We may earn a commission from qualifying purchases through eligible product links, at no additional cost to you. Product prices and ratings should be checked on the retailer's website before purchase.</p>
+</section>
 
-        <p>
-            © 2026 SmartCart AI. Prototype Project.
-        </p>
+<section id="business-model" class="business-plan-section">
+    <div class="section-heading"><p>BUSINESS PLAN TRAILBLAZERS 3.0</p><h2>A Practical, Trust-Led Business Model</h2><span>Freemium shopping support, with proposed premium tools and clearly disclosed partnerships.</span></div>
+    <div class="business-plan-grid">
+        <article class="business-plan-card"><div class="plan-icon">🧠</div><h3>Decision Support</h3><p>Recommendations should explain <strong>why an option fits</strong> using budget, preference, price, ratings and available review themes.</p></article>
+        <article class="business-plan-card"><div class="plan-icon">💳</div><h3>Freemium + Premium</h3><p>Core discovery remains free. The plan proposes an optional <strong>₹99/month</strong> premium tier for advanced comparisons and personalisation.</p></article>
+        <article class="business-plan-card"><div class="plan-icon">🤝</div><h3>Responsible Monetisation</h3><p>Affiliate links and brand partnerships can support revenue, with clear disclosures and recommendations designed around shopper fit.</p></article>
+    </div>
+    <div class="forecast-panel">
+        <div class="forecast-heading"><div><p class="forecast-eyebrow">YEAR 1 • BUSINESS PLAN ESTIMATE</p><h3>Illustrative Financial Snapshot</h3></div><span class="forecast-tag">Projection, not actual results</span></div>
+        <div class="forecast-metrics">
+            <div><span>Registered users</span><strong>50,000</strong></div><div><span>Active users</span><strong>20,000</strong></div><div><span>Paid users</span><strong>2,000</strong></div>
+            <div><span>Total revenue</span><strong>₹15.68L</strong></div><div><span>Operating expenses</span><strong>₹14.00L</strong></div><div><span>Operating surplus</span><strong>₹1.68L</strong></div>
+        </div>
+        <p class="forecast-note">Plan assumptions: ₹11.88L premium revenue, ₹1.80L affiliate revenue and ₹2.00L brand partnerships. Estimated operating margin: 10.7%; illustrative CAC proxy: ₹600 per paid customer. These are planning estimates, not current earnings or validated demand.</p>
+    </div>
+    <p class="project-note"><strong>Trust, Privacy &amp; Inclusion:</strong> SmartCart AI aims to protect user privacy by collecting only necessary information, explaining product recommendations and clearly labelling sponsored results. Future improvements will include better preference controls, enhanced accessibility and multilingual support.</p>
+</section>
 
-        <p class="amazon-disclosure">
-            As an Amazon Associate I earn from qualifying purchases.
-        </p>
+<section id="college-project" class="college-project-section">
+    <div class="section-heading"><p>COLLEGE PROJECT • B.COM</p><h2>SmartCart AI: Project Overview</h2><span>An AI-assisted decision layer that helps shoppers move from endless searching to a shortlist that fits their needs and budget.</span></div>
+    <div class="project-intro-grid">
+        <article class="project-info-card"><div class="project-icon">🎯</div><h3>Problem Statement</h3><p>Online shoppers can face too many choices, scattered product details and uncertainty about which option best matches their budget and priorities.</p></article>
+        <article class="project-info-card"><div class="project-icon">💡</div><h3>Proposed Solution</h3><p>SmartCart AI acts as a decision-making layer: it organises product options and gives a reason for a recommendation based on budget, category and preference. The current website demonstrates this with rule-based logic.</p></article>
+        <article class="project-info-card"><div class="project-icon">🤝</div><h3>Inclusive Design Goal</h3><p>The concept aims to make product discovery clearer for budget-conscious shoppers. Future improvements can include multilingual guidance and stronger accessibility support.</p></article>
+    </div>
+    <div class="project-details-grid">
+        <div class="project-details-card"><h3>⚙️ Key Features</h3><ul><li>Browse products across multiple categories</li><li>Filter products by search, category and budget</li><li>Receive rule-based suggestions with a simple fit explanation</li><li>Compare options by price, category and rating</li><li>Add items to cart and try a demo checkout</li><li>View sample order and business metrics in the admin dashboard</li></ul></div>
+        <div class="project-details-card"><h3>💼 Business Model</h3><ul><li><strong>Premium subscription:</strong> proposed ₹99/month for advanced decision support, if validated</li><li><strong>Affiliate commission:</strong> potential income from eligible, tracked purchases</li><li><strong>Brand partnerships:</strong> clearly labelled sponsored placements that do not override user fit</li></ul></div>
+        <div class="project-details-card"><h3>📊 Business &amp; Financial Insights</h3><ul><li>Revenue, cost and estimated profit</li><li>GST shown as a demo checkout calculation</li><li>Cost of goods sold (COGS) assumptions</li><li>Affiliate commission and profit margin</li><li>Order records and basic management reporting</li></ul></div>
+    </div>
+    <div class="project-note"><strong>Prototype note:</strong> The recommendation feature currently uses predefined rules; it is not connected to a trained AI model. Orders and dashboard figures are stored in this browser for demonstration, not in a secure online database. Financial percentages are illustrative assumptions, not verified business results.</div>
+</section>
 
-    </footer>
+<section id="about" class="about-section">
+    <p>ABOUT SMARTCART AI</p><h2>Making Online Shopping Smarter</h2>
+    <p>SmartCart AI combines product discovery and rule-based suggestions in a simple prototype to help customers compare options and make purchasing decisions.</p>
+</section>
 
-
-    <script src="script.js"></script>
-
+<footer>
+    <div class="logo">🛒 SmartCart <span>AI</span></div>
+    <p>© 2026 SmartCart AI. Prototype Project.</p>
+    <p class="amazon-disclosure">As an Amazon Associate I earn from qualifying purchases.</p>
+</footer>
+<script src="script.js"></script>
 </body>
 </html>
